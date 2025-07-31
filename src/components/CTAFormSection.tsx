@@ -11,6 +11,8 @@ import { trackConversion, trackCTAClick, trackWhatsAppClick } from "@/utils/anal
 import { openWhatsApp } from "@/utils/whatsapp";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { supabase } from "@/integrations/supabase/client";
+import { TermsModal } from "@/components/modals/TermsModal";
+import { PrivacyModal } from "@/components/modals/PrivacyModal";
 
 export function CTAFormSection() {
   useScrollReveal();
@@ -22,6 +24,8 @@ export function CTAFormSection() {
     consumption: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [termsOpen, setTermsOpen] = useState(false);
+  const [privacyOpen, setPrivacyOpen] = useState(false);
   const { toast } = useToast();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -278,19 +282,30 @@ Muito obrigado(a)!`;
 
                 <p className="text-xs sm:text-sm text-muted-foreground text-center mt-3 sm:mt-4">
                   Ao enviar, você concorda com nossos{" "}
-                  <a href="/politicas" className="text-primary hover:underline">
+                  <button 
+                    type="button"
+                    onClick={() => setTermsOpen(true)}
+                    className="text-primary hover:underline"
+                  >
                     Termos de Uso
-                  </a>{" "}
+                  </button>{" "}
                   e{" "}
-                  <a href="/privacidade" className="text-primary hover:underline">
+                  <button 
+                    type="button"
+                    onClick={() => setPrivacyOpen(true)}
+                    className="text-primary hover:underline"
+                  >
                     Política de Privacidade
-                  </a>
+                  </button>
                 </p>
               </form>
             </CardContent>
           </Card>
         </div>
       </div>
+      
+      <TermsModal open={termsOpen} onOpenChange={setTermsOpen} />
+      <PrivacyModal open={privacyOpen} onOpenChange={setPrivacyOpen} />
     </section>
   );
 }
