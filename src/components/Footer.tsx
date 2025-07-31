@@ -94,11 +94,7 @@ export function Footer() {
                   Política de Cookies
                 </button>
               </li>
-              <li>
-                <a href="/regulamentacao" className="text-primary-foreground/80 hover:text-primary-foreground transition-fast">
-                  Regulamentação ANEEL
-                </a>
-              </li>
+             
             </ul>
           </div>
 
