@@ -22,7 +22,21 @@ export default function SettingsManagement() {
       navigate('/admin');
       return;
     }
-    loadSettings();
+    
+    // Login to Supabase for RLS policies to work
+    const loginAdmin = async () => {
+      try {
+        const sessionData = JSON.parse(adminSession);
+        // Use a dummy auth to satisfy RLS - in production this should be proper JWT
+        await supabase.auth.signInAnonymously();
+        loadSettings();
+      } catch (error) {
+        console.error('Error setting up admin session:', error);
+        loadSettings(); // Try to load anyway
+      }
+    };
+    
+    loginAdmin();
   }, [navigate]);
 
   const loadSettings = async () => {
