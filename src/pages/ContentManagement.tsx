@@ -27,6 +27,11 @@ const FIXED_SECTIONS = [
     description: 'Título, subtítulo e propaganda'
   },
   {
+    key: 'steps',
+    title: 'Etapas',
+    description: 'Ícone, título, descrição e mensagem do botão das 3 etapas'
+  },
+  {
     key: 'differential',
     title: 'Energia Solar por Assinatura',
     description: 'Título, subtítulo e cards de diferenciais'
@@ -40,6 +45,16 @@ const FIXED_SECTIONS = [
     key: 'who_can_participate',
     title: 'Quem Pode Participar?',
     description: 'Título, descrição e cards de participantes'
+  },
+  {
+    key: 'requirements',
+    title: 'Requisitos Básicos',
+    description: 'Título e cards de requisitos'
+  },
+  {
+    key: 'plans',
+    title: 'Planos',
+    description: 'Título, subtítulo e informações dos cards'
   },
   {
     key: 'testimonials',
@@ -125,7 +140,7 @@ export default function ContentManagement() {
     switch (sectionKey) {
       case 'header':
         return (
-          <div className="space-y-4">
+          <div className="space-y-6">
             <div>
               <Label htmlFor="association_text">Texto "Associação"</Label>
               <Input
@@ -138,24 +153,31 @@ export default function ContentManagement() {
                 placeholder="Associação"
               />
             </div>
-            <div>
-              <Label htmlFor="cta_text">Texto do botão CTA</Label>
-              <Input
-                id="cta_text"
-                value={editingSection.content?.ctaText || 'Quero Participar'}
-                onChange={(e) => setEditingSection({
-                  ...editingSection,
-                  content: { ...editingSection.content, ctaText: e.target.value }
-                })}
-                placeholder="Quero Participar"
-              />
+            <div className="space-y-2">
+              <Label>Links de Navegação</Label>
+              {['Como funciona', 'Planos', 'Depoimentos', 'FAQ', 'Quero Participar'].map((link, index) => (
+                <div key={index}>
+                  <Input
+                    value={editingSection.content?.navLinks?.[index] || link}
+                    onChange={(e) => {
+                      const newNavLinks = [...(editingSection.content?.navLinks || ['Como funciona', 'Planos', 'Depoimentos', 'FAQ', 'Quero Participar'])];
+                      newNavLinks[index] = e.target.value;
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, navLinks: newNavLinks }
+                      });
+                    }}
+                    placeholder={link}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         );
 
       case 'hero':
         return (
-          <div className="space-y-4">
+          <div className="space-y-6">
             <div>
               <Label htmlFor="hero_title">Título Principal</Label>
               <Input
@@ -181,12 +203,48 @@ export default function ContentManagement() {
                 rows={3}
               />
             </div>
+            <div className="space-y-4">
+              <Label>Cards de Destaque (3 fixos)</Label>
+              {[
+                { key: 'economy', defaultTitle: '30%', defaultSubtitle: 'Economia Média na Conta' },
+                { key: 'clean', defaultTitle: '100%', defaultSubtitle: 'Energia Limpa e Renovável' },
+                { key: 'investment', defaultTitle: '0', defaultSubtitle: 'Investimento Inicial' }
+              ].map((card, index) => (
+                <div key={card.key} className="border p-4 rounded-lg space-y-2">
+                  <Label>Card {index + 1}</Label>
+                  <Input
+                    placeholder="Título"
+                    value={editingSection.content?.cards?.[index]?.title || card.defaultTitle}
+                    onChange={(e) => {
+                      const newCards = [...(editingSection.content?.cards || [])];
+                      newCards[index] = { ...newCards[index], title: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, cards: newCards }
+                      });
+                    }}
+                  />
+                  <Input
+                    placeholder="Subtítulo"
+                    value={editingSection.content?.cards?.[index]?.subtitle || card.defaultSubtitle}
+                    onChange={(e) => {
+                      const newCards = [...(editingSection.content?.cards || [])];
+                      newCards[index] = { ...newCards[index], subtitle: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, cards: newCards }
+                      });
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         );
 
       case 'how_it_works':
         return (
-          <div className="space-y-4">
+          <div className="space-y-6">
             <div>
               <Label htmlFor="how_title">Título</Label>
               <Input
@@ -212,12 +270,520 @@ export default function ContentManagement() {
                 rows={2}
               />
             </div>
+            <div className="space-y-4">
+              <Label>Propaganda</Label>
+              <div className="border p-4 rounded-lg space-y-2">
+                <Input
+                  placeholder="Título da Propaganda"
+                  value={editingSection.content?.promo?.title || '💡 A energia vira crédito, e esse crédito é direcionado para o consumidor'}
+                  onChange={(e) => setEditingSection({
+                    ...editingSection,
+                    content: { 
+                      ...editingSection.content, 
+                      promo: { ...editingSection.content?.promo, title: e.target.value }
+                    }
+                  })}
+                />
+                <Input
+                  placeholder="Descrição da Propaganda"
+                  value={editingSection.content?.promo?.description || 'Energia Solar por Assinatura - conectando famílias brasileiras à energia limpa'}
+                  onChange={(e) => setEditingSection({
+                    ...editingSection,
+                    content: { 
+                      ...editingSection.content, 
+                      promo: { ...editingSection.content?.promo, description: e.target.value }
+                    }
+                  })}
+                />
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'steps':
+        return (
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <Label>Etapas (3 fixas)</Label>
+              {[
+                { 
+                  defaultTitle: 'Calcule sua economia e envie seu consumo',
+                  defaultDescription: 'Preencha nosso formulário com seus dados e consumo. Selecione sua distribuidora de energia para uma simulação precisa.'
+                },
+                { 
+                  defaultTitle: 'Análise e Aprovação',
+                  defaultDescription: 'Nossa equipe analisa seu perfil de consumo e aprova sua participação no programa de energia compartilhada.'
+                },
+                { 
+                  defaultTitle: 'Comece a Economizar',
+                  defaultDescription: 'Receba os créditos de energia solar diretamente na sua conta de luz e veja sua economia crescer mês a mês.'
+                }
+              ].map((step, index) => (
+                <div key={index} className="border p-4 rounded-lg space-y-2">
+                  <Label>Etapa {index + 1}</Label>
+                  <Input
+                    placeholder="Ícone da Etapa"
+                    value={editingSection.content?.steps?.[index]?.icon || '📋'}
+                    onChange={(e) => {
+                      const newSteps = [...(editingSection.content?.steps || [])];
+                      newSteps[index] = { ...newSteps[index], icon: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, steps: newSteps }
+                      });
+                    }}
+                  />
+                  <Input
+                    placeholder="Título"
+                    value={editingSection.content?.steps?.[index]?.title || step.defaultTitle}
+                    onChange={(e) => {
+                      const newSteps = [...(editingSection.content?.steps || [])];
+                      newSteps[index] = { ...newSteps[index], title: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, steps: newSteps }
+                      });
+                    }}
+                  />
+                  <Textarea
+                    placeholder="Descrição"
+                    value={editingSection.content?.steps?.[index]?.description || step.defaultDescription}
+                    onChange={(e) => {
+                      const newSteps = [...(editingSection.content?.steps || [])];
+                      newSteps[index] = { ...newSteps[index], description: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, steps: newSteps }
+                      });
+                    }}
+                    rows={2}
+                  />
+                </div>
+              ))}
+            </div>
+            <div>
+              <Label htmlFor="cta_message">Mensagem abaixo do botão</Label>
+              <Input
+                id="cta_message"
+                value={editingSection.content?.ctaMessage || 'Sem taxa de adesão • Sem fidelidade • Cancele quando quiser'}
+                onChange={(e) => setEditingSection({
+                  ...editingSection,
+                  content: { ...editingSection.content, ctaMessage: e.target.value }
+                })}
+                placeholder="Sem taxa de adesão • Sem fidelidade • Cancele quando quiser"
+              />
+            </div>
+          </div>
+        );
+
+      case 'differential':
+        return (
+          <div className="space-y-6">
+            <div>
+              <Label htmlFor="diff_title">Título da Seção</Label>
+              <Input
+                id="diff_title"
+                value={editingSection.content?.title || 'Unindo famílias, Geradores e Consumidores Brasileiros'}
+                onChange={(e) => setEditingSection({
+                  ...editingSection,
+                  content: { ...editingSection.content, title: e.target.value }
+                })}
+                placeholder="Unindo famílias, Geradores e Consumidores Brasileiros"
+              />
+            </div>
+            <div>
+              <Label htmlFor="diff_subtitle">Subtítulo</Label>
+              <Textarea
+                id="diff_subtitle"
+                value={editingSection.content?.subtitle || 'A energia vem de investimentos de famílias brasileiras, não de grandes corporações. Juntos, criamos uma rede de energia limpa, acessível e sustentável.'}
+                onChange={(e) => setEditingSection({
+                  ...editingSection,
+                  content: { ...editingSection.content, subtitle: e.target.value }
+                })}
+                placeholder="A energia vem de investimentos de famílias brasileiras, não de grandes corporações. Juntos, criamos uma rede de energia limpa, acessível e sustentável."
+                rows={2}
+              />
+            </div>
+            <div className="space-y-4">
+              <Label>Cards (3 fixos)</Label>
+              {[
+                { defaultTitle: 'Investimento de Famílias', defaultDescription: 'Nossa energia vem de investimentos de famílias brasileiras, não de grandes corporações' },
+                { defaultTitle: 'Rede Colaborativa', defaultDescription: 'Conectamos geradores e consumidores em uma rede sustentável e econômica' },
+                { defaultTitle: 'Energia Limpa', defaultDescription: 'Promovemos o uso de energia solar renovável para um futuro mais sustentável' }
+              ].map((card, index) => (
+                <div key={index} className="border p-4 rounded-lg space-y-2">
+                  <Label>Card {index + 1}</Label>
+                  <Input
+                    placeholder="Ícone"
+                    value={editingSection.content?.cards?.[index]?.icon || '🏠'}
+                    onChange={(e) => {
+                      const newCards = [...(editingSection.content?.cards || [])];
+                      newCards[index] = { ...newCards[index], icon: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, cards: newCards }
+                      });
+                    }}
+                  />
+                  <Input
+                    placeholder="Título"
+                    value={editingSection.content?.cards?.[index]?.title || card.defaultTitle}
+                    onChange={(e) => {
+                      const newCards = [...(editingSection.content?.cards || [])];
+                      newCards[index] = { ...newCards[index], title: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, cards: newCards }
+                      });
+                    }}
+                  />
+                  <Textarea
+                    placeholder="Descrição"
+                    value={editingSection.content?.cards?.[index]?.description || card.defaultDescription}
+                    onChange={(e) => {
+                      const newCards = [...(editingSection.content?.cards || [])];
+                      newCards[index] = { ...newCards[index], description: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, cards: newCards }
+                      });
+                    }}
+                    rows={2}
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="space-y-2">
+              <Label>Card Promocional</Label>
+              <div className="border p-4 rounded-lg space-y-2">
+                <Input
+                  placeholder="Título do Card Promo"
+                  value={editingSection.content?.promoCard?.title || 'Faça parte desta revolução energética! 🚀'}
+                  onChange={(e) => setEditingSection({
+                    ...editingSection,
+                    content: { 
+                      ...editingSection.content, 
+                      promoCard: { ...editingSection.content?.promoCard, title: e.target.value }
+                    }
+                  })}
+                />
+                <Textarea
+                  placeholder="Descrição do Card Promo"
+                  value={editingSection.content?.promoCard?.description || 'Junte-se a milhares de famílias brasileiras que já escolheram um futuro mais sustentável e econômico.'}
+                  onChange={(e) => setEditingSection({
+                    ...editingSection,
+                    content: { 
+                      ...editingSection.content, 
+                      promoCard: { ...editingSection.content?.promoCard, description: e.target.value }
+                    }
+                  })}
+                  rows={2}
+                />
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'benefits':
+        return (
+          <div className="space-y-6">
+            <div>
+              <Label htmlFor="benefits_title">Título da Seção</Label>
+              <Input
+                id="benefits_title"
+                value={editingSection.content?.title || 'Por que escolher Energia Compartilhada?'}
+                onChange={(e) => setEditingSection({
+                  ...editingSection,
+                  content: { ...editingSection.content, title: e.target.value }
+                })}
+                placeholder="Por que escolher Energia Compartilhada?"
+              />
+            </div>
+            <div>
+              <Label htmlFor="benefits_description">Descrição</Label>
+              <Textarea
+                id="benefits_description"
+                value={editingSection.content?.description || 'Todas as vantagens da energia solar, sem os problemas da instalação tradicional. Economia, sustentabilidade e praticidade em um só lugar.'}
+                onChange={(e) => setEditingSection({
+                  ...editingSection,
+                  content: { ...editingSection.content, description: e.target.value }
+                })}
+                placeholder="Todas as vantagens da energia solar, sem os problemas da instalação tradicional. Economia, sustentabilidade e praticidade em um só lugar."
+                rows={2}
+              />
+            </div>
+            <div className="space-y-4">
+              <Label>Cards de Benefícios (6 fixos)</Label>
+              {[
+                { defaultTitle: 'Economia Garantida', defaultDescription: 'Reduza até 30% na sua conta de luz todo mês com energia limpa e renovável.' },
+                { defaultTitle: 'Sem Investimento Inicial', defaultDescription: 'Comece a economizar imediatamente, sem precisar investir em painéis solares.' },
+                { defaultTitle: 'Sem Obras ou Instalação', defaultDescription: 'Não há necessidade de obras em sua casa ou empresa. Tudo funciona remotamente.' },
+                { defaultTitle: 'Flexibilidade Total', defaultDescription: 'Cancele quando quiser, sem multas ou taxas de cancelamento.' },
+                { defaultTitle: 'Energia 100% Limpa', defaultDescription: 'Contribua para um planeta mais sustentável usando energia solar renovável.' },
+                { defaultTitle: 'Suporte Especializado', defaultDescription: 'Nossa equipe está sempre disponível para esclarecer suas dúvidas.' }
+              ].map((benefit, index) => (
+                <div key={index} className="border p-4 rounded-lg space-y-2">
+                  <Label>Card {index + 1}</Label>
+                  <Input
+                    placeholder="Ícone"
+                    value={editingSection.content?.cards?.[index]?.icon || '💰'}
+                    onChange={(e) => {
+                      const newCards = [...(editingSection.content?.cards || [])];
+                      newCards[index] = { ...newCards[index], icon: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, cards: newCards }
+                      });
+                    }}
+                  />
+                  <Input
+                    placeholder="Título"
+                    value={editingSection.content?.cards?.[index]?.title || benefit.defaultTitle}
+                    onChange={(e) => {
+                      const newCards = [...(editingSection.content?.cards || [])];
+                      newCards[index] = { ...newCards[index], title: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, cards: newCards }
+                      });
+                    }}
+                  />
+                  <Textarea
+                    placeholder="Descrição"
+                    value={editingSection.content?.cards?.[index]?.description || benefit.defaultDescription}
+                    onChange={(e) => {
+                      const newCards = [...(editingSection.content?.cards || [])];
+                      newCards[index] = { ...newCards[index], description: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, cards: newCards }
+                      });
+                    }}
+                    rows={2}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+
+      case 'who_can_participate':
+        return (
+          <div className="space-y-6">
+            <div>
+              <Label htmlFor="who_title">Título da Seção</Label>
+              <Input
+                id="who_title"
+                value={editingSection.content?.title || 'Quem Pode Participar?'}
+                onChange={(e) => setEditingSection({
+                  ...editingSection,
+                  content: { ...editingSection.content, title: e.target.value }
+                })}
+                placeholder="Quem Pode Participar?"
+              />
+            </div>
+            <div>
+              <Label htmlFor="who_description">Descrição</Label>
+              <Textarea
+                id="who_description"
+                value={editingSection.content?.description || 'A energia compartilhada é para todos! Desde pessoas físicas até empresas, qualquer um pode aproveitar os benefícios da energia solar.'}
+                onChange={(e) => setEditingSection({
+                  ...editingSection,
+                  content: { ...editingSection.content, description: e.target.value }
+                })}
+                placeholder="A energia compartilhada é para todos! Desde pessoas físicas até empresas, qualquer um pode aproveitar os benefícios da energia solar."
+                rows={2}
+              />
+            </div>
+            <div className="space-y-4">
+              <Label>Cards de Participantes</Label>
+              {[
+                { defaultTitle: 'Pessoa Física (CPF)', defaultDescription: 'Residências, apartamentos, casas e propriedades rurais com consumo mensal a partir de 100 kWh.' },
+                { defaultTitle: 'Pessoa Jurídica (CNPJ)', defaultDescription: 'Empresas, comércios, indústrias e estabelecimentos comerciais de todos os portes.' },
+                { defaultTitle: 'Condomínios', defaultDescription: 'Condomínios residenciais e comerciais que buscam reduzir custos com energia elétrica.' }
+              ].map((participant, index) => (
+                <div key={index} className="border p-4 rounded-lg space-y-2">
+                  <Label>Card {index + 1}</Label>
+                  <Input
+                    placeholder="Ícone"
+                    value={editingSection.content?.cards?.[index]?.icon || '👤'}
+                    onChange={(e) => {
+                      const newCards = [...(editingSection.content?.cards || [])];
+                      newCards[index] = { ...newCards[index], icon: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, cards: newCards }
+                      });
+                    }}
+                  />
+                  <Input
+                    placeholder="Título"
+                    value={editingSection.content?.cards?.[index]?.title || participant.defaultTitle}
+                    onChange={(e) => {
+                      const newCards = [...(editingSection.content?.cards || [])];
+                      newCards[index] = { ...newCards[index], title: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, cards: newCards }
+                      });
+                    }}
+                  />
+                  <Textarea
+                    placeholder="Descrição"
+                    value={editingSection.content?.cards?.[index]?.description || participant.defaultDescription}
+                    onChange={(e) => {
+                      const newCards = [...(editingSection.content?.cards || [])];
+                      newCards[index] = { ...newCards[index], description: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, cards: newCards }
+                      });
+                    }}
+                    rows={2}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+
+      case 'requirements':
+        return (
+          <div className="space-y-6">
+            <div>
+              <Label htmlFor="req_title">Título da Seção</Label>
+              <Input
+                id="req_title"
+                value={editingSection.content?.title || 'Requisitos Básicos'}
+                onChange={(e) => setEditingSection({
+                  ...editingSection,
+                  content: { ...editingSection.content, title: e.target.value }
+                })}
+                placeholder="Requisitos Básicos"
+              />
+            </div>
+            <div className="space-y-4">
+              <Label>Cards de Requisitos</Label>
+              {[
+                { defaultTitle: 'Conta de Luz Ativa', defaultDescription: 'Tenha uma conta de energia elétrica ativa em seu nome ou empresa.' },
+                { defaultTitle: 'Consumo Mínimo', defaultDescription: 'Consumo mensal de pelo menos 100 kWh na conta de energia.' },
+                { defaultTitle: 'Distribuidora Participante', defaultDescription: 'Sua distribuidora deve fazer parte do programa de energia compartilhada.' }
+              ].map((requirement, index) => (
+                <div key={index} className="border p-4 rounded-lg space-y-2">
+                  <Label>Card {index + 1}</Label>
+                  <Input
+                    placeholder="Ícone"
+                    value={editingSection.content?.cards?.[index]?.icon || '✓'}
+                    onChange={(e) => {
+                      const newCards = [...(editingSection.content?.cards || [])];
+                      newCards[index] = { ...newCards[index], icon: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, cards: newCards }
+                      });
+                    }}
+                  />
+                  <Input
+                    placeholder="Título"
+                    value={editingSection.content?.cards?.[index]?.title || requirement.defaultTitle}
+                    onChange={(e) => {
+                      const newCards = [...(editingSection.content?.cards || [])];
+                      newCards[index] = { ...newCards[index], title: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, cards: newCards }
+                      });
+                    }}
+                  />
+                  <Textarea
+                    placeholder="Descrição"
+                    value={editingSection.content?.cards?.[index]?.description || requirement.defaultDescription}
+                    onChange={(e) => {
+                      const newCards = [...(editingSection.content?.cards || [])];
+                      newCards[index] = { ...newCards[index], description: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, cards: newCards }
+                      });
+                    }}
+                    rows={2}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+
+      case 'plans':
+        return (
+          <div className="space-y-6">
+            <div>
+              <Label htmlFor="plans_title">Título da Seção</Label>
+              <Input
+                id="plans_title"
+                value={editingSection.content?.title || 'Escolha seu Plano de Economia'}
+                onChange={(e) => setEditingSection({
+                  ...editingSection,
+                  content: { ...editingSection.content, title: e.target.value }
+                })}
+                placeholder="Escolha seu Plano de Economia"
+              />
+            </div>
+            <div>
+              <Label htmlFor="plans_subtitle">Subtítulo</Label>
+              <Textarea
+                id="plans_subtitle"
+                value={editingSection.content?.subtitle || 'Quanto maior seu consumo, maior sua economia. Escolha o plano ideal para seu perfil e comece a economizar hoje mesmo.'}
+                onChange={(e) => setEditingSection({
+                  ...editingSection,
+                  content: { ...editingSection.content, subtitle: e.target.value }
+                })}
+                placeholder="Quanto maior seu consumo, maior sua economia. Escolha o plano ideal para seu perfil e comece a economizar hoje mesmo."
+                rows={2}
+              />
+            </div>
+            <div className="space-y-4">
+              <Label>Informações dos Cards</Label>
+              {[
+                { key: 'investment', defaultTitle: '100%', defaultSubtitle: 'Sem Investimento' },
+                { key: 'cancellation', defaultTitle: '0', defaultSubtitle: 'Taxa de cancelamento' },
+                { key: 'start', defaultTitle: '30', defaultSubtitle: 'Dias para começar' }
+              ].map((info, index) => (
+                <div key={info.key} className="border p-4 rounded-lg space-y-2">
+                  <Label>Info {index + 1}</Label>
+                  <Input
+                    placeholder="Título"
+                    value={editingSection.content?.infoCards?.[index]?.title || info.defaultTitle}
+                    onChange={(e) => {
+                      const newInfoCards = [...(editingSection.content?.infoCards || [])];
+                      newInfoCards[index] = { ...newInfoCards[index], title: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, infoCards: newInfoCards }
+                      });
+                    }}
+                  />
+                  <Input
+                    placeholder="Subtítulo"
+                    value={editingSection.content?.infoCards?.[index]?.subtitle || info.defaultSubtitle}
+                    onChange={(e) => {
+                      const newInfoCards = [...(editingSection.content?.infoCards || [])];
+                      newInfoCards[index] = { ...newInfoCards[index], subtitle: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, infoCards: newInfoCards }
+                      });
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         );
 
       case 'testimonials':
         return (
-          <div className="space-y-4">
+          <div className="space-y-6">
             <div>
               <Label htmlFor="testimonials_title">Título</Label>
               <Input
@@ -242,6 +808,82 @@ export default function ContentManagement() {
                 placeholder="Milhares de pessoas já estão economizando com energia compartilhada. Veja o que elas têm a dizer sobre a experiência."
                 rows={2}
               />
+            </div>
+            <div className="space-y-4">
+              <Label>Depoimentos (3 fixos)</Label>
+              {[
+                { 
+                  defaultName: 'Maria Silva', 
+                  defaultLocation: 'São Paulo, SP', 
+                  defaultSavings: 'R$ 180/mês',
+                  defaultTestimonial: 'Incrível! Estou economizando muito na conta de luz sem precisar instalar nada. Super recomendo!'
+                },
+                { 
+                  defaultName: 'João Santos', 
+                  defaultLocation: 'Rio de Janeiro, RJ', 
+                  defaultSavings: 'R$ 250/mês',
+                  defaultTestimonial: 'A energia compartilhada mudou nossa vida. Economia real todo mês e ainda ajudamos o meio ambiente.'
+                },
+                { 
+                  defaultName: 'Ana Costa', 
+                  defaultLocation: 'Belo Horizonte, MG', 
+                  defaultSavings: 'R$ 320/mês',
+                  defaultTestimonial: 'Fácil de contratar e os resultados aparecem rapidamente. Melhor decisão que tomamos!'
+                }
+              ].map((testimonial, index) => (
+                <div key={index} className="border p-4 rounded-lg space-y-2">
+                  <Label>Depoimento {index + 1}</Label>
+                  <Input
+                    placeholder="Nome"
+                    value={editingSection.content?.testimonials?.[index]?.name || testimonial.defaultName}
+                    onChange={(e) => {
+                      const newTestimonials = [...(editingSection.content?.testimonials || [])];
+                      newTestimonials[index] = { ...newTestimonials[index], name: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, testimonials: newTestimonials }
+                      });
+                    }}
+                  />
+                  <Input
+                    placeholder="Localização"
+                    value={editingSection.content?.testimonials?.[index]?.location || testimonial.defaultLocation}
+                    onChange={(e) => {
+                      const newTestimonials = [...(editingSection.content?.testimonials || [])];
+                      newTestimonials[index] = { ...newTestimonials[index], location: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, testimonials: newTestimonials }
+                      });
+                    }}
+                  />
+                  <Input
+                    placeholder="Economia"
+                    value={editingSection.content?.testimonials?.[index]?.savings || testimonial.defaultSavings}
+                    onChange={(e) => {
+                      const newTestimonials = [...(editingSection.content?.testimonials || [])];
+                      newTestimonials[index] = { ...newTestimonials[index], savings: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, testimonials: newTestimonials }
+                      });
+                    }}
+                  />
+                  <Textarea
+                    placeholder="Depoimento"
+                    value={editingSection.content?.testimonials?.[index]?.testimonial || testimonial.defaultTestimonial}
+                    onChange={(e) => {
+                      const newTestimonials = [...(editingSection.content?.testimonials || [])];
+                      newTestimonials[index] = { ...newTestimonials[index], testimonial: e.target.value };
+                      setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, testimonials: newTestimonials }
+                      });
+                    }}
+                    rows={2}
+                  />
+                </div>
+              ))}
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
