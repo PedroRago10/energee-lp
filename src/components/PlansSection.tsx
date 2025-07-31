@@ -61,10 +61,10 @@ export function PlansSection() {
             <Card 
               key={plan.id}
               className={`
-                relative overflow-hidden border-2 transition-smooth hover:scale-105 scroll-reveal
+                relative overflow-hidden border-2 transition-smooth hover:scale-105 scroll-reveal bg-card
                 ${plan.popular 
-                  ? 'border-secondary shadow-glow bg-white animate-pulse-glow' 
-                  : 'border-border hover:border-primary/30 gradient-card'
+                  ? 'border-secondary shadow-lg' 
+                  : 'border-border hover:border-primary/30'
                 }
               `}
               style={{ animationDelay: `${index * 0.2}s` }}
@@ -76,8 +76,8 @@ export function PlansSection() {
                 </div>
               )}
               
-              <CardHeader className={`text-center pb-4 ${plan.popular ? 'pt-12' : 'pt-8'}`}>
-                <CardTitle className="text-2xl font-bold text-foreground mb-2">
+              <CardHeader className={`text-center pb-4 ${plan.popular ? 'pt-12' : 'pt-8'} bg-card`}>
+                <CardTitle className="text-2xl font-bold text-card-foreground mb-2">
                   {plan.name}
                 </CardTitle>
                 <p className="text-muted-foreground mb-4">{plan.subtitle}</p>
@@ -101,14 +101,14 @@ export function PlansSection() {
                 </div>
               </CardHeader>
 
-              <CardContent className="pt-4">
+              <CardContent className="pt-4 bg-card">
                 <div className="space-y-4 mb-8">
                   {Array.isArray(plan.features) && plan.features.map((feature: string, featureIndex: number) => (
                     <div key={featureIndex} className="flex items-center">
                       <div className="flex-shrink-0 w-5 h-5 bg-success/10 rounded-full flex items-center justify-center mr-3">
                         <Check className="h-3 w-3 text-success" />
                       </div>
-                      <span className="text-muted-foreground">{feature}</span>
+                      <span className="text-card-foreground">{feature}</span>
                     </div>
                   ))}
                 </div>
