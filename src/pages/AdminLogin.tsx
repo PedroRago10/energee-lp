@@ -32,12 +32,14 @@ export default function AdminLogin() {
     setIsLoading(true);
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: formData.email,
-        password: formData.password,
+      // Check credentials against custom admin_users table
+      const { data, error } = await supabase.rpc('verify_admin_login', {
+        input_email: formData.email,
+        input_password: formData.password
       });
 
       if (error) {
+        console.error('Login error:', error);
         toast({
           title: "Erro no login",
           description: "Credenciais inválidas. Tente novamente.",
@@ -46,14 +48,27 @@ export default function AdminLogin() {
         return;
       }
 
-      if (data.user) {
+      if (data === true) {
+        // Store admin session in localStorage
+        localStorage.setItem('adminSession', JSON.stringify({
+          email: formData.email,
+          loginTime: new Date().toISOString()
+        }));
+        
         toast({
           title: "Login realizado com sucesso!",
           description: "Redirecionando para o painel administrativo...",
         });
         navigate("/admin/dashboard");
+      } else {
+        toast({
+          title: "Erro no login",
+          description: "Credenciais inválidas. Tente novamente.",
+          variant: "destructive",
+        });
       }
     } catch (error) {
+      console.error('Login error:', error);
       toast({
         title: "Erro no sistema",
         description: "Ocorreu um erro inesperado. Tente novamente.",
