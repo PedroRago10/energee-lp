@@ -115,10 +115,10 @@ export function CTAFormSection() {
           
           {/* Left Content */}
           <div className="text-white scroll-reveal mb-8 lg:mb-0">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6">
               Comece a <span className="text-secondary-light">economizar</span> hoje mesmo!
             </h2>
-            <p className="text-base sm:text-lg lg:text-xl mb-6 sm:mb-8 text-white/90 leading-relaxed">
+            <p className="text-sm sm:text-base lg:text-lg mb-6 sm:mb-8 text-white/90 leading-relaxed">
               Preencha o formulário ao lado e nossa equipe de especialistas 
               entrará em contato para criar seu plano personalizado de economia 
               com energia solar compartilhada.
@@ -172,7 +172,7 @@ export function CTAFormSection() {
           {/* Right Form */}
           <Card className="bg-white/95 backdrop-blur-md shadow-2xl border-0 scroll-reveal animate-slide-in-right w-full max-w-lg mx-auto lg:max-w-none">
             <CardHeader className="text-center pb-4 sm:pb-6 px-4 sm:px-6">
-              <CardTitle className="text-xl sm:text-2xl lg:text-3xl font-bold text-foreground mb-2">
+              <CardTitle className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground mb-2">
                 💰 Calcule sua Economia
               </CardTitle>
               <p className="text-sm sm:text-base text-muted-foreground">

@@ -82,10 +82,10 @@ export default function AdminDashboard() {
         <div className="container-xl px-2 sm:px-4 py-3 sm:py-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
             <div className="w-full sm:w-auto">
-              <h1 className="text-xl sm:text-2xl font-bold text-foreground">
+              <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground">
                 Painel Administrativo
               </h1>
-              <p className="text-sm sm:text-base text-muted-foreground">
+              <p className="text-xs sm:text-sm text-muted-foreground">
                 Bem-vindo, {user.email}
               </p>
             </div>

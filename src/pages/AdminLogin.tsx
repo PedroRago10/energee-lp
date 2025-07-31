@@ -91,10 +91,10 @@ export default function AdminLogin() {
               className="h-10 sm:h-12 w-auto"
             />
           </div>
-          <CardTitle className="text-xl sm:text-2xl font-bold">
+          <CardTitle className="text-lg sm:text-xl font-bold">
             Painel Administrativo
           </CardTitle>
-          <p className="text-sm sm:text-base text-muted-foreground">
+          <p className="text-xs sm:text-sm text-muted-foreground">
             Faça login para acessar o painel de controle
           </p>
         </CardHeader>
