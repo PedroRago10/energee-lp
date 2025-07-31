@@ -44,19 +44,45 @@ export function TestimonialsSection() {
   // Get testimonials from content - use existing data or show defaults
   const contentTestimonials = testimonialsData?.content?.testimonials?.filter((t: any) => 
     t && t.location // Show if has at least location
-  ).map((t: any, index: number) => ({
-    name: t.name || `Cliente ${index + 1}`,
-    location: t.location,
-    image: t.image || customerImage,
-    rating: t.rating || 5,
-    text: t.text || (t.name === "Maria Silva" ? 
-      "Incrível! Estou economizando muito na conta de luz sem precisar instalar nada. Super recomendo!" :
-      t.location === "Concórdia, SC" ?
-      "A energia compartilhada mudou nossa vida. Economia real todo mês e ainda ajudamos o meio ambiente." :
-      "Excelente serviço de energia solar compartilhada!"
-    ),
-    savings: t.savings || "Economiza"
-  })) || [];
+  ).map((t: any, index: number) => {
+    // Define specific names and savings based on location
+    let name = t.name;
+    let savings = t.savings;
+    
+    if (!name) {
+      if (t.location === "Concórdia, SC") {
+        name = "João Santos";
+      } else if (t.location === "Curitiba, PR") {
+        name = "Ana Costa";
+      } else {
+        name = `Cliente ${index + 1}`;
+      }
+    }
+    
+    if (!savings) {
+      if (t.location === "Concórdia, SC") {
+        savings = "R$ 250/mês";
+      } else if (t.location === "Curitiba, PR") {
+        savings = "R$ 90/mês";
+      } else {
+        savings = "Economiza";
+      }
+    }
+    
+    return {
+      name,
+      location: t.location,
+      image: t.image || customerImage,
+      rating: t.rating || 5,
+      text: t.text || (t.name === "Maria Silva" ? 
+        "Incrível! Estou economizando muito na conta de luz sem precisar instalar nada. Super recomendo!" :
+        t.location === "Concórdia, SC" ?
+        "A energia compartilhada mudou nossa vida. Economia real todo mês e ainda ajudamos o meio ambiente." :
+        "Excelente serviço de energia solar compartilhada!"
+      ),
+      savings
+    };
+  }) || [];
 
   const testimonials = contentTestimonials.length > 0 ? contentTestimonials : defaultTestimonials;
   const sectionTitle = testimonialsData?.content?.title || testimonialsData?.title || "O que nossos clientes estão falando";
