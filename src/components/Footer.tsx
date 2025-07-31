@@ -116,7 +116,7 @@ export function Footer() {
                 <MapPin className="h-5 w-5 mt-1 mr-3 flex-shrink-0" />
                 <div>
                   <div className="text-primary-foreground/80">
-                    São Paulo, SP
+                    Brasil
                   </div>
                   <div className="text-sm text-primary-foreground/60">
                     Atendimento Nacional
