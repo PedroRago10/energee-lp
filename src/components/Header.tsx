@@ -48,7 +48,7 @@ export function Header() {
               alt="Energee" 
               className="h-8 w-auto"
             />
-            <span className="text-md font-semibold text-primary">{associationText}</span>
+            <span className="text-sm font-semibold text-primary">{associationText}</span>
           </div>
 
           {/* Desktop Navigation */}
