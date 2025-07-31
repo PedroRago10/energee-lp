@@ -165,25 +165,95 @@ export default function ContentManagement() {
                 />
               </div>
 
-              <div>
-                <Label htmlFor="content">Conteúdo (JSON)</Label>
-                <Textarea
-                  id="content"
-                  value={JSON.stringify(editingSection.content, null, 2)}
-                  onChange={(e) => {
-                    try {
-                      const content = JSON.parse(e.target.value);
-                      setEditingSection({
+              {/* Campos dinâmicos baseados no conteúdo */}
+              <div className="space-y-4">
+                <Label>Conteúdo</Label>
+                
+                {/* Campo de texto principal */}
+                {editingSection.content?.text !== undefined && (
+                  <div>
+                    <Label htmlFor="content_text">Texto</Label>
+                    <Textarea
+                      id="content_text"
+                      value={editingSection.content.text || ''}
+                      onChange={(e) => setEditingSection({
                         ...editingSection,
-                        content
-                      });
-                    } catch (error) {
-                      // Invalid JSON, keep as string for now
-                    }
-                  }}
-                  placeholder='{"texto": "Conteúdo aqui"}'
-                  rows={6}
-                />
+                        content: { ...editingSection.content, text: e.target.value }
+                      })}
+                      placeholder="Texto principal"
+                      rows={3}
+                    />
+                  </div>
+                )}
+
+                {/* Campo de subtítulo */}
+                {editingSection.content?.subtitle !== undefined && (
+                  <div>
+                    <Label htmlFor="content_subtitle">Subtítulo</Label>
+                    <Input
+                      id="content_subtitle"
+                      value={editingSection.content.subtitle || ''}
+                      onChange={(e) => setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, subtitle: e.target.value }
+                      })}
+                      placeholder="Subtítulo"
+                    />
+                  </div>
+                )}
+
+                {/* Campo de título */}
+                {editingSection.content?.title !== undefined && (
+                  <div>
+                    <Label htmlFor="content_title">Título do Conteúdo</Label>
+                    <Input
+                      id="content_title"
+                      value={editingSection.content.title || ''}
+                      onChange={(e) => setEditingSection({
+                        ...editingSection,
+                        content: { ...editingSection.content, title: e.target.value }
+                      })}
+                      placeholder="Título"
+                    />
+                  </div>
+                )}
+
+                {/* Botões para adicionar novos campos */}
+                <div className="flex space-x-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setEditingSection({
+                      ...editingSection,
+                      content: { ...editingSection.content, text: editingSection.content.text || '' }
+                    })}
+                  >
+                    + Adicionar Texto
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setEditingSection({
+                      ...editingSection,
+                      content: { ...editingSection.content, subtitle: editingSection.content.subtitle || '' }
+                    })}
+                  >
+                    + Adicionar Subtítulo
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setEditingSection({
+                      ...editingSection,
+                      content: { ...editingSection.content, title: editingSection.content.title || '' }
+                    })}
+                  >
+                    + Adicionar Título
+                  </Button>
+                </div>
               </div>
 
               <div className="flex space-x-4">
