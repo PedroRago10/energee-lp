@@ -26,11 +26,14 @@ export default function SettingsManagement() {
   }, [navigate]);
 
   const loadSettings = async () => {
+    console.log('loadSettings called');
     try {
       const { data, error } = await supabase
         .from('site_settings')
         .select('*')
         .order('setting_key');
+
+      console.log('loadSettings result:', { data, error });
 
       if (error) throw error;
       setSettings(data || []);
@@ -47,6 +50,7 @@ export default function SettingsManagement() {
   };
 
   const handleSave = async (settingKey: string, value: string) => {
+    console.log('handleSave called:', { settingKey, value });
     try {
       const { error } = await supabase
         .from('site_settings')
@@ -55,6 +59,8 @@ export default function SettingsManagement() {
           setting_value: value,
           updated_at: new Date().toISOString()
         });
+
+      console.log('Supabase upsert result:', { error });
 
       if (error) throw error;
 
@@ -75,34 +81,42 @@ export default function SettingsManagement() {
   };
 
   const updateSetting = (key: string, value: string) => {
+    console.log('updateSetting called:', { key, value });
     setSettings(prevSettings => {
+      console.log('prevSettings:', prevSettings);
       const existingSetting = prevSettings.find(s => s.setting_key === key);
+      console.log('existingSetting:', existingSetting);
+      
       if (existingSetting) {
-        return prevSettings.map(setting => 
+        const newSettings = prevSettings.map(setting => 
           setting.setting_key === key 
             ? { ...setting, setting_value: value }
             : setting
         );
+        console.log('newSettings (updated):', newSettings);
+        return newSettings;
       } else {
         // Create new setting if it doesn't exist
-        return [
-          ...prevSettings,
-          {
-            id: crypto.randomUUID(),
-            setting_key: key,
-            setting_value: value,
-            setting_type: 'text',
-            description: null,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString()
-          }
-        ];
+        const newSetting = {
+          id: crypto.randomUUID(),
+          setting_key: key,
+          setting_value: value,
+          setting_type: 'text',
+          description: null,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        };
+        const newSettings = [...prevSettings, newSetting];
+        console.log('newSettings (created):', newSettings);
+        return newSettings;
       }
     });
   };
 
   const getSettingValue = (key: string) => {
-    return settings.find(s => s.setting_key === key)?.setting_value || '';
+    const value = settings.find(s => s.setting_key === key)?.setting_value || '';
+    console.log('getSettingValue:', { key, value });
+    return value;
   };
 
   if (isLoading) {
@@ -169,14 +183,17 @@ export default function SettingsManagement() {
               />
             </div>
 
-            <Button onClick={() => {
+            <Button onClick={async () => {
+              console.log('Button clicked - saving company info');
               const companyName = getSettingValue('company_name');
               const companyCnpj = getSettingValue('company_cnpj');
               const companyAddress = getSettingValue('company_address');
               
-              handleSave('company_name', companyName);
-              handleSave('company_cnpj', companyCnpj);
-              handleSave('company_address', companyAddress);
+              console.log('Values to save:', { companyName, companyCnpj, companyAddress });
+              
+              await handleSave('company_name', companyName);
+              await handleSave('company_cnpj', companyCnpj);
+              await handleSave('company_address', companyAddress);
             }}>
               <Save className="h-4 w-4 mr-2" />
               Salvar Informações da Empresa
