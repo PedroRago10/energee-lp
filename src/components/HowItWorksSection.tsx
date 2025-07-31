@@ -62,8 +62,8 @@ export function HowItWorksSection() {
     
     return {
       number: String(index + 1).padStart(2, '0'),
-      title: s.title || `Etapa ${index + 1}`,
-      description: s.description || "Descrição da etapa",
+      title: s.title || defaultSteps[index]?.title || `Etapa ${index + 1}`,
+      description: s.description || defaultSteps[index]?.description || "Descrição da etapa",
       icon: defaultSteps[index]?.icon || UserPlus,
       color: defaultSteps[index]?.color || "text-primary"
     };
