@@ -41,15 +41,20 @@ export function TestimonialsSection() {
     }
   ];
 
-  // Get testimonials from content, filter out incomplete ones and add defaults for missing fields
+  // Get testimonials from content - use existing data or show defaults
   const contentTestimonials = testimonialsData?.content?.testimonials?.filter((t: any) => 
-    t && (t.name || t.location) // More lenient filter - show if has at least name OR location
-  ).map((t: any) => ({
-    name: t.name || "Cliente",
-    location: t.location || "Brasil",
+    t && t.location // Show if has at least location
+  ).map((t: any, index: number) => ({
+    name: t.name || `Cliente ${index + 1}`,
+    location: t.location,
     image: t.image || customerImage,
     rating: t.rating || 5,
-    text: t.text || "Excelente serviço de energia solar compartilhada!",
+    text: t.text || (t.name === "Maria Silva" ? 
+      "Incrível! Estou economizando muito na conta de luz sem precisar instalar nada. Super recomendo!" :
+      t.location === "Concórdia, SC" ?
+      "A energia compartilhada mudou nossa vida. Economia real todo mês e ainda ajudamos o meio ambiente." :
+      "Excelente serviço de energia solar compartilhada!"
+    ),
     savings: t.savings || "Economiza"
   })) || [];
 
