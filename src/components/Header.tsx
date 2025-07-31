@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import energeeLogo from "@/assets/logo-energee-blue.png";
-import { trackCTAClick } from "@/utils/analytics";
+import { trackCTAClick, trackWhatsAppClick } from "@/utils/analytics";
 import { openWhatsApp } from "@/utils/whatsapp";
 import { useContentData } from "@/hooks/useContentData";
 
@@ -30,7 +30,7 @@ export function Header() {
   };
 
   const handleFalarEspecialista = () => {
-    trackCTAClick("Falar com Especialista", "Header");
+    trackWhatsAppClick("Header", "Falar com Especialista");
     openWhatsApp(
       "Olá! Gostaria de falar com um especialista sobre energia compartilhada.",
       "Header"

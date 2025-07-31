@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { trackConversion, trackCTAClick } from "@/utils/analytics";
+import { trackConversion, trackCTAClick, trackWhatsAppClick } from "@/utils/analytics";
 import { openWhatsApp } from "@/utils/whatsapp";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { supabase } from "@/integrations/supabase/client";
@@ -57,21 +57,27 @@ export function CTAFormSection() {
 
       toast({
         title: "🎉 Cadastro realizado com sucesso!",
-        description: "Em breve nossa equipe entrará em contato para finalizar seu plano de economia.",
+        description: "Redirecionando para WhatsApp para falar com um especialista.",
       });
       
-      // After successful submission, offer WhatsApp contact
+      // Redirect to WhatsApp with professional message
       setTimeout(() => {
-        const shouldOpenWhatsApp = window.confirm(
-          "Quer falar agora mesmo com um especialista via WhatsApp?"
-        );
-        if (shouldOpenWhatsApp) {
-          openWhatsApp(
-            `Olá! Acabei de me cadastrar no site. Meu nome é ${formData.name} e gostaria de saber mais sobre os planos de energia compartilhada.`,
-            "Formulário CTA"
-          );
-        }
-      }, 1000);
+        const whatsappMessage = `🌱 *ENERGEE - ENERGIA SOLAR COMPARTILHADA*
+
+Olá! Meu nome é *${formData.name}* e acabei de me cadastrar no site da Energee.
+
+📧 *Email:* ${formData.email}
+📱 *Telefone:* ${formData.phone}
+📍 *Estado:* ${formData.estado}
+${formData.consumption ? `💡 *Conta de luz:* ${formData.consumption}` : ''}
+
+Gostaria de falar com um especialista sobre energia solar compartilhada e conhecer melhor os planos de economia disponíveis.
+
+Muito obrigado(a)!`;
+
+        trackWhatsAppClick("Formulário CTA Auto", "WhatsApp Automático - Formulário");
+        openWhatsApp(whatsappMessage, "Formulário CTA Auto");
+      }, 1500);
       
       setFormData({
         name: "",
@@ -93,7 +99,7 @@ export function CTAFormSection() {
   };
 
   const handleWhatsAppClick = () => {
-    trackCTAClick("Falar via WhatsApp", "CTA Form");
+    trackWhatsAppClick("CTA Form Section", "Falar via WhatsApp");
     openWhatsApp(
       "Olá! Vi o site da Energee e gostaria de falar com um especialista sobre energia compartilhada.",
       "CTA Form Section"

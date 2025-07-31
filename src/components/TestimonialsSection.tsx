@@ -5,10 +5,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Star } from "lucide-react";
 import customerImage from "@/assets/customer-testimonial.jpg";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useContentData } from "@/hooks/useContentData";
 
 export function TestimonialsSection() {
   useScrollReveal();
-  const testimonials = [
+  const { getSection } = useContentData();
+
+  const testimonialsData = getSection('testimonials');
+  
+  // Default testimonials fallback
+  const defaultTestimonials = [
     {
       name: "Maria Silva",
       location: "São Paulo, SP",
@@ -35,16 +41,23 @@ export function TestimonialsSection() {
     }
   ];
 
+  const testimonials = testimonialsData?.content?.testimonials || defaultTestimonials;
+  const sectionTitle = testimonialsData?.title || "O que nossos clientes estão falando";
+  const sectionDescription = testimonialsData?.description || "Veja os depoimentos reais de quem já está economizando com energia solar compartilhada";
+
   return (
-    <section className="py-20 gradient-section">
+    <section id="depoimentos" className="py-20 gradient-section">
       <div className="container-xl px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            O que nossos <span className="text-primary">clientes dizem</span>?
+            {sectionTitle.includes("clientes") ? (
+              <>O que nossos <span className="text-primary">clientes</span> dizem?</>
+            ) : (
+              sectionTitle
+            )}
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Milhares de pessoas já estão economizando com energia compartilhada. 
-            Veja o que elas têm a dizer sobre a experiência.
+            {sectionDescription}
           </p>
         </div>
 

@@ -13,7 +13,10 @@ export const trackCTAClick = async (buttonText: string, section: string) => {
         event_type: 'cta_click',
         event_data: {
           button_text: buttonText,
-          section: section
+          section: section,
+          timestamp: new Date().toISOString(),
+          url: window.location.href,
+          user_agent: navigator.userAgent
         }
       }
     });
@@ -26,6 +29,35 @@ export const trackCTAClick = async (buttonText: string, section: string) => {
     (window as any).gtag('event', 'cta_click', {
       button_text: buttonText,
       section: section
+    });
+  }
+};
+
+export const trackWhatsAppClick = async (source: string, buttonText: string) => {
+  console.log(`WhatsApp Click: ${buttonText} - Source: ${source}`);
+  
+  // Track in Supabase
+  try {
+    await supabase.functions.invoke('track-analytics', {
+      body: {
+        event_type: 'whatsapp_click',
+        event_data: {
+          source: source,
+          button_text: buttonText,
+          timestamp: new Date().toISOString(),
+          url: window.location.href
+        }
+      }
+    });
+  } catch (error) {
+    console.error('WhatsApp tracking error:', error);
+  }
+  
+  // Also track with Google Analytics if available
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    (window as any).gtag('event', 'whatsapp_click', {
+      source: source,
+      button_text: buttonText
     });
   }
 };
