@@ -12,9 +12,6 @@ export default defineConfig(({ mode }) => ({
       port: 8080,
     },
   },
-  define: {
-    __WS_TOKEN__: JSON.stringify(process.env.WS_TOKEN || ''),
-  },
   plugins: [
     react(),
     // Temporarily disable componentTagger to fix WS_TOKEN issue
