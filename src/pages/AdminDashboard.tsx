@@ -193,7 +193,7 @@ export default function AdminDashboard() {
                   Aqui você poderá editar textos, títulos e imagens de todas as seções do site.
                 </p>
                 <div className="mt-4">
-                  <Button>Editar Seções</Button>
+                  <Button onClick={() => navigate("/admin/content")}>Editar Seções</Button>
                 </div>
               </CardContent>
             </Card>
@@ -209,7 +209,7 @@ export default function AdminDashboard() {
                   Configure os planos de economia, preços e benefícios oferecidos.
                 </p>
                 <div className="mt-4">
-                  <Button>Gerenciar Planos</Button>
+                  <Button onClick={() => navigate("/admin/plans")}>Gerenciar Planos</Button>
                 </div>
               </CardContent>
             </Card>
@@ -225,7 +225,7 @@ export default function AdminDashboard() {
                   Visualize e exporte os dados dos formulários enviados pelos visitantes.
                 </p>
                 <div className="mt-4">
-                  <Button>Ver Formulários</Button>
+                  <Button onClick={() => navigate("/admin/forms")}>Ver Formulários</Button>
                 </div>
               </CardContent>
             </Card>
@@ -241,7 +241,7 @@ export default function AdminDashboard() {
                   Adicione, edite ou remova perguntas e respostas da seção FAQ.
                 </p>
                 <div className="mt-4">
-                  <Button>Gerenciar FAQ</Button>
+                  <Button onClick={() => navigate("/admin/faq")}>Gerenciar FAQ</Button>
                 </div>
               </CardContent>
             </Card>
@@ -257,7 +257,7 @@ export default function AdminDashboard() {
                   Configure integrações (Mautic), textos estratégicos e outras configurações do sistema.
                 </p>
                 <div className="mt-4">
-                  <Button>Abrir Configurações</Button>
+                  <Button onClick={() => navigate("/admin/settings")}>Abrir Configurações</Button>
                 </div>
               </CardContent>
             </Card>
