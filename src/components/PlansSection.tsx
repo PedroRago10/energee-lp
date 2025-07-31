@@ -6,9 +6,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Star } from "lucide-react";
 import { trackCTAClick } from "@/utils/analytics";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useContentData } from "@/hooks/useContentData";
 
 export function PlansSection() {
   useScrollReveal();
+  const { plans, getSection } = useContentData();
+  
+  const plansData = getSection('plans');
+  const sectionTitle = plansData?.content?.title || 'Escolha seu Plano de Economia';
+  const sectionSubtitle = plansData?.content?.subtitle || 'Quanto maior seu consumo, maior sua economia. Escolha o plano ideal para seu perfil e comece a economizar hoje mesmo.';
+  const infoCards = plansData?.content?.infoCards || [
+    { title: '100%', subtitle: 'Sem Investimento' },
+    { title: '0', subtitle: 'Taxa de cancelamento' },
+    { title: '30', subtitle: 'Dias para começar' }
+  ];
 
   const handlePlanClick = (planName: string) => {
     trackCTAClick(`Contratar Plano ${planName}`, "Planos");
@@ -19,66 +30,16 @@ export function PlansSection() {
     trackCTAClick("Simule aqui", "Planos");
     document.getElementById('formulario')?.scrollIntoView({ behavior: 'smooth' });
   };
-  const plans = [
-    {
-      name: "Econômico",
-      subtitle: "Mesma titularidade",
-      percentage: "10%",
-      monthlyConsumption: "100-250 kWh",
-      estimatedSavings: "R$ 30-75",
-      features: [
-        "Mesma titularidade",
-        "Suporte por e-mail"
-      ],
-      buttonText: "Contratar Plano",
-      buttonVariant: "outline" as const,
-      popular: false
-    },
-    {
-      name: "Eficiente", 
-      subtitle: "Titularidade Associação",
-      percentage: "15%",
-      monthlyConsumption: "250-500 kWh",
-      estimatedSavings: "R$ 125-250",
-      features: [
-        "Titularidade Associação",
-        "Desconto de até 15%",
-        "Suporte prioritário",
-        "Inclui bandeira tarifária"
-      ],
-      buttonText: "Contratar Plano",
-      buttonVariant: "cta" as const,
-      popular: true
-    },
-    {
-      name: "Máximo",
-      subtitle: "Titularidade Associação",
-      percentage: "20%",
-      monthlyConsumption: "500+ kWh",
-      estimatedSavings: "R$ 375+",
-      features: [
-        "Titularidade Associação",
-        "Desconto de até 20%",
-        "2 faturas por ano grátis",
-        "Suporte prioritário",
-        "Inclui bandeira tarifária"
-      ],
-      buttonText: "Contratar Plano",
-      buttonVariant: "hero" as const,
-      popular: false
-    }
-  ];
 
   return (
     <section id="planos" className="py-20 bg-background">
       <div className="container-xl px-4">
         <div className="text-center mb-16 scroll-reveal">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Escolha seu <span className="text-primary">Plano de Economia</span>
+            {sectionTitle}
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            Quanto maior seu consumo, maior sua economia. Escolha o plano ideal 
-            para seu perfil e comece a economizar hoje mesmo.
+            {sectionSubtitle}
           </p>
           
           {/* Simulator CTA */}
@@ -98,7 +59,7 @@ export function PlansSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {plans.map((plan, index) => (
             <Card 
-              key={index}
+              key={plan.id}
               className={`
                 relative overflow-hidden border-2 transition-smooth hover:scale-105 scroll-reveal
                 ${plan.popular 
@@ -123,7 +84,7 @@ export function PlansSection() {
                 
                 <div className="mb-4">
                   <div className="text-5xl font-bold text-primary mb-2">
-                    {plan.percentage}
+                    {plan.percentage}%
                   </div>
                   <div className="text-lg text-muted-foreground">
                     de economia
@@ -132,17 +93,17 @@ export function PlansSection() {
                 
                 <div className="space-y-2">
                   <div className="text-sm text-muted-foreground">
-                    Consumo: {plan.monthlyConsumption}/mês
+                    Consumo: {plan.consumption_range}/mês
                   </div>
                   <div className="text-lg font-semibold text-secondary">
-                    Economia: {plan.estimatedSavings}/mês
+                    Economia: {plan.estimated_savings}/mês
                   </div>
                 </div>
               </CardHeader>
 
               <CardContent className="pt-4">
                 <div className="space-y-4 mb-8">
-                  {plan.features.map((feature, featureIndex) => (
+                  {Array.isArray(plan.features) && plan.features.map((feature: string, featureIndex: number) => (
                     <div key={featureIndex} className="flex items-center">
                       <div className="flex-shrink-0 w-5 h-5 bg-success/10 rounded-full flex items-center justify-center mr-3">
                         <Check className="h-3 w-3 text-success" />
@@ -153,12 +114,12 @@ export function PlansSection() {
                 </div>
 
                 <Button 
-                  variant={plan.buttonVariant} 
+                  variant={plan.button_variant as any} 
                   className="w-full"
                   size="lg"
                   onClick={() => handlePlanClick(plan.name)}
                 >
-                  {plan.buttonText}
+                  {plan.button_text}
                 </Button>
               </CardContent>
             </Card>
@@ -168,20 +129,17 @@ export function PlansSection() {
         {/* Additional Info */}
         <div className="text-center">
           <div className="inline-flex flex-col sm:flex-row items-center gap-8 bg-muted/50 rounded-2xl p-8">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">100%</div>
-              <div className="text-muted-foreground">Sem Investimento</div>
-            </div>
-            <div className="hidden sm:block w-px h-12 bg-border"></div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-secondary mb-2">0</div>
-              <div className="text-muted-foreground">Taxa de cancelamento</div>
-            </div>
-            <div className="hidden sm:block w-px h-12 bg-border"></div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-success mb-2">30</div>
-              <div className="text-muted-foreground">Dias para começar</div>
-            </div>
+            {infoCards.map((info, index) => (
+              <div key={index} className="flex items-center">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-primary mb-2">{info.title}</div>
+                  <div className="text-muted-foreground">{info.subtitle}</div>
+                </div>
+                {index < infoCards.length - 1 && (
+                  <div className="hidden sm:block w-px h-12 bg-border ml-8"></div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </div>

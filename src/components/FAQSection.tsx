@@ -8,51 +8,11 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useContentData } from "@/hooks/useContentData";
 
 export function FAQSection() {
   useScrollReveal();
-  const faqs = [
-    {
-      question: "O que é energia compartilhada?",
-      answer: "Energia compartilhada é um modelo onde você recebe créditos de energia solar diretamente na sua conta de luz, sem precisar instalar painéis na sua propriedade. A energia é gerada em usinas solares e os créditos são distribuídos aos participantes."
-    },
-    {
-      question: "Como funciona na prática?",
-      answer: "Você se cadastra, escolhe um plano de acordo com seu consumo, e automaticamente passa a receber créditos de energia limpa na sua conta. Esses créditos reduzem o valor da sua conta de luz todos os meses."
-    },
-    {
-      question: "Preciso fazer alguma instalação em casa?",
-      answer: "Não! Esse é um dos principais benefícios. Você não precisa instalar nada em casa, não há obras, não há investimento inicial. A energia vem direto na sua conta através dos créditos."
-    },
-    {
-      question: "Quanto posso economizar?",
-      answer: "A economia varia de acordo com seu consumo e o plano escolhido, podendo chegar a até 30% na sua conta de luz. Oferecemos uma simulação gratuita para você saber exatamente quanto pode economizar."
-    },
-    {
-      question: "Há algum contrato de fidelidade?",
-      answer: "Não! Você pode cancelar quando quiser, sem multas e sem taxa de cancelamento. Nosso objetivo é sua satisfação, não te prender em contratos longos."
-    },
-    {
-      question: "Como sei que é seguro e confiável?",
-      answer: "Todo o processo é regulamentado pela ANEEL (Agência Nacional de Energia Elétrica). As usinas solares são registradas e licenciadas, garantindo total segurança e legalidade do serviço."
-    },
-    {
-      question: "Em quanto tempo começo a economizar?",
-      answer: "Normalmente em até 30 dias após a contratação você já começa a receber os primeiros créditos na sua conta de luz. O processo de ativação é rápido e sem burocracia."
-    },
-    {
-      question: "Posso mudar de plano depois?",
-      answer: "Sim! Você pode alterar seu plano a qualquer momento para se adequar melhor ao seu consumo atual. Nosso time de suporte está sempre disponível para ajudar."
-    },
-    {
-      question: "E se eu me mudar de endereço?",
-      answer: "Não há problema! Seus créditos de energia podem ser transferidos para o novo endereço, desde que seja na mesma área de concessão da distribuidora de energia."
-    },
-    {
-      question: "Qual a diferença para instalar painéis em casa?",
-      answer: "Com energia compartilhada você não tem investimento inicial (que pode chegar a R$ 50.000), não tem manutenção, não tem obras, e pode cancelar quando quiser. É mais flexível e acessível."
-    }
-  ];
+  const { faqs } = useContentData();
 
   return (
     <section id="faq" className="py-20 bg-background">
@@ -71,7 +31,7 @@ export function FAQSection() {
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => (
               <AccordionItem 
-                key={index} 
+                key={faq.id} 
                 value={`item-${index}`}
                 className="border border-border rounded-lg px-6 py-2 shadow-custom-sm hover:shadow-custom-md transition-smooth"
               >
