@@ -22,32 +22,29 @@ export function PlansSection() {
   const plans = [
     {
       name: "Econômico",
-      subtitle: "Ideal para começar",
+      subtitle: "Mesma titularidade",
       percentage: "10%",
       monthlyConsumption: "100-250 kWh",
       estimatedSavings: "R$ 30-75",
       features: [
-        "Economia de até 10% na conta",
-        "Energia 100% limpa",
-        "Sem taxa de adesão",
-        "Suporte por email"
+        "Mesma titularidade",
+        "Suporte por e-mail"
       ],
       buttonText: "Contratar Plano",
       buttonVariant: "outline" as const,
       popular: false
     },
     {
-      name: "Eficiente",
-      subtitle: "Mais escolhido",
-      percentage: "20%",
+      name: "Eficiente", 
+      subtitle: "Titularidade Associação",
+      percentage: "15%",
       monthlyConsumption: "250-500 kWh",
       estimatedSavings: "R$ 125-250",
       features: [
-        "Economia de até 20% na conta",
-        "Energia 100% limpa",
-        "Sem taxa de adesão",
+        "Titularidade Associação",
+        "Desconto de até 15%",
         "Suporte prioritário",
-        "Relatórios detalhados"
+        "Inclui bandeira tarifária"
       ],
       buttonText: "Contratar Plano",
       buttonVariant: "cta" as const,
@@ -55,17 +52,16 @@ export function PlansSection() {
     },
     {
       name: "Máximo",
-      subtitle: "Máxima economia",
-      percentage: "30%",
+      subtitle: "Titularidade Associação",
+      percentage: "20%",
       monthlyConsumption: "500+ kWh",
       estimatedSavings: "R$ 375+",
       features: [
-        "Economia de até 30% na conta",
-        "Energia 100% limpa",
-        "Sem taxa de adesão",
-        "Suporte VIP 24/7",
-        "Relatórios detalhados",
-        "Consultoria energética"
+        "Titularidade Associação",
+        "Desconto de até 20%",
+        "2 faturas por ano grátis",
+        "Suporte prioritário",
+        "Inclui bandeira tarifária"
       ],
       buttonText: "Contratar Plano",
       buttonVariant: "hero" as const,
@@ -174,7 +170,7 @@ export function PlansSection() {
           <div className="inline-flex flex-col sm:flex-row items-center gap-8 bg-muted/50 rounded-2xl p-8">
             <div className="text-center">
               <div className="text-3xl font-bold text-primary mb-2">100%</div>
-              <div className="text-muted-foreground">Sem investimento inicial</div>
+              <div className="text-muted-foreground">Sem Investimento</div>
             </div>
             <div className="hidden sm:block w-px h-12 bg-border"></div>
             <div className="text-center">

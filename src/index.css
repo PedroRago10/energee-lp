@@ -188,6 +188,21 @@ Todas as cores DEVEM ser HSL para compatibilidade com design system
   .container-md { @apply max-w-4xl mx-auto; }
   .container-lg { @apply max-w-6xl mx-auto; }
   .container-xl { @apply max-w-7xl mx-auto; }
+
+  /* Mobile Responsive Improvements */
+  @media (max-width: 768px) {
+    .container-xl {
+      @apply px-4;
+    }
+    
+    h1 { @apply text-3xl; }
+    h2 { @apply text-2xl md:text-3xl; }
+    h3 { @apply text-xl md:text-2xl; }
+    
+    .grid {
+      @apply gap-4;
+    }
+  }
 }
 
 /* Smooth scroll behavior */

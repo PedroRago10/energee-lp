@@ -5,6 +5,7 @@
 import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
 import { HowItWorksSection } from "@/components/HowItWorksSection";
+import { DifferentialSection } from "@/components/DifferentialSection";
 import { BenefitsSection } from "@/components/BenefitsSection";
 import { WhoCanParticipateSection } from "@/components/WhoCanParticipateSection";
 import { PlansSection } from "@/components/PlansSection";
@@ -24,6 +25,9 @@ const Index = () => {
       
       {/* Como Funciona - 3 passos */}
       <HowItWorksSection />
+      
+      {/* Diferencial - Energia de famílias brasileiras */}
+      <DifferentialSection />
       
       {/* Benefícios - Cards com vantagens */}
       <BenefitsSection />

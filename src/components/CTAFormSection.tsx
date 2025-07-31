@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { trackConversion, trackCTAClick } from "@/utils/analytics";
 import { openWhatsApp } from "@/utils/whatsapp";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { supabase } from "@/integrations/supabase/client";
 
 export function CTAFormSection() {
   useScrollReveal();
@@ -17,7 +18,7 @@ export function CTAFormSection() {
     name: "",
     email: "",
     phone: "",
-    city: "",
+    estado: "",
     consumption: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -35,12 +36,25 @@ export function CTAFormSection() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Track conversion
-    trackConversion("form_submission", 1);
-    trackCTAClick("Quero Começar a Economizar", "CTA Form");
+    try {
+      // Track conversion
+      trackConversion("form_submission", 1);
+      trackCTAClick("Quero Começar a Economizar", "CTA Form");
 
-    // Simulate form submission
-    setTimeout(() => {
+      // Submit form via Supabase function
+      const { data, error } = await supabase.functions.invoke('submit-form', {
+        body: {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          estado: formData.estado,
+          consumption: formData.consumption,
+          message: "Lead capturado via formulário CTA"
+        }
+      });
+
+      if (error) throw error;
+
       toast({
         title: "🎉 Cadastro realizado com sucesso!",
         description: "Em breve nossa equipe entrará em contato para finalizar seu plano de economia.",
@@ -59,15 +73,23 @@ export function CTAFormSection() {
         }
       }, 1000);
       
-      setIsSubmitting(false);
       setFormData({
         name: "",
         email: "",
         phone: "",
-        city: "",
+        estado: "",
         consumption: ""
       });
-    }, 2000);
+    } catch (error) {
+      console.error('Form submission error:', error);
+      toast({
+        title: "Erro ao enviar formulário",
+        description: "Ocorreu um erro. Tente novamente ou entre em contato via WhatsApp.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleWhatsAppClick = () => {
@@ -208,15 +230,15 @@ export function CTAFormSection() {
                 </div>
 
                 <div>
-                  <Label htmlFor="city" className="text-foreground font-medium">
-                    Cidade *
+                  <Label htmlFor="estado" className="text-foreground font-medium">
+                    Estado *
                   </Label>
                   <Input
-                    id="city"
-                    name="city"
-                    value={formData.city}
+                    id="estado"
+                    name="estado"
+                    value={formData.estado}
                     onChange={handleInputChange}
-                    placeholder="Digite sua cidade"
+                    placeholder="Digite seu estado"
                     required
                     className="mt-2 h-12 bg-white border-border focus:border-primary"
                   />

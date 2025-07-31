@@ -23,29 +23,6 @@ export function Footer() {
               Democratizando o acesso à energia solar através da geração compartilhada. 
               Economia, sustentabilidade e praticidade para todos.
             </p>
-            <div className="flex space-x-4">
-              <a 
-                href="https://facebook.com" 
-                className="w-10 h-10 bg-primary-foreground/10 rounded-full flex items-center justify-center hover:bg-primary-foreground/20 transition-smooth"
-                aria-label="Facebook"
-              >
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a 
-                href="https://instagram.com" 
-                className="w-10 h-10 bg-primary-foreground/10 rounded-full flex items-center justify-center hover:bg-primary-foreground/20 transition-smooth"
-                aria-label="Instagram"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a 
-                href="https://linkedin.com" 
-                className="w-10 h-10 bg-primary-foreground/10 rounded-full flex items-center justify-center hover:bg-primary-foreground/20 transition-smooth"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="h-5 w-5" />
-              </a>
-            </div>
           </div>
 
           {/* Quick Links */}
@@ -154,10 +131,10 @@ export function Footer() {
         <div className="border-t border-primary-foreground/20 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-primary-foreground/60 text-sm mb-4 md:mb-0">
-              © 2024 Energee.org.br. Todos os direitos reservados.
+              © 2024 Energee.org.br. Todos os direitos reservados. • CNPJ: 61.015.824/0001-20
             </div>
             <div className="text-primary-foreground/60 text-sm">
-              Regulamentado pela ANEEL • CNPJ: 00.000.000/0001-00
+              Regulamentado pela ANEEL • Desenvolvido por: Pedro Rago
             </div>
           </div>
         </div>

@@ -4,7 +4,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { UserPlus, Settings, TrendingDown } from "lucide-react";
-import howItWorksImage from "@/assets/how-it-works-improved.jpg";
+import howItWorksImage from "@/assets/energy-flow-diagram.jpg";
 import { trackCTAClick } from "@/utils/analytics";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
@@ -18,22 +18,22 @@ export function HowItWorksSection() {
   const steps = [
     {
       number: "01",
-      title: "Cadastre-se",
-      description: "Preencha um formulário simples com seus dados básicos e informações sobre seu consumo de energia elétrica.",
+      title: "Calcule sua economia e envie seu consumo",
+      description: "Preencha nosso formulário com seus dados e consumo. Selecione sua distribuidora de energia para uma simulação precisa.",
       icon: UserPlus,
       color: "text-primary"
     },
     {
       number: "02", 
-      title: "Escolha um Plano",
-      description: "Selecione o plano de economia que melhor se adequa ao seu perfil de consumo mensal de energia.",
+      title: "Escolha o Plano e Assine o Termo de Adesão",
+      description: "Selecione o plano ideal para seu perfil e assine o termo de adesão digitalmente. Todo o processo é 100% online.",
       icon: Settings,
       color: "text-secondary"
     },
     {
       number: "03",
-      title: "Comece a Economizar",
-      description: "Receba créditos de energia limpa na sua conta de luz e veja a economia acontecer todo mês, sem obras.",
+      title: "Comece a economizar",
+      description: "Receba créditos de energia limpa na sua conta de luz em até 30 dias e veja a economia acontecer todo mês.",
       icon: TrendingDown,
       color: "text-success"
     }
@@ -53,12 +53,20 @@ export function HowItWorksSection() {
         </div>
 
         {/* Diagram Image */}
-        <div className="mb-16 flex justify-center scroll-reveal">
+        <div className="mb-16 flex flex-col items-center scroll-reveal">
           <img 
             src={howItWorksImage} 
             alt="Diagrama explicativo do funcionamento da energia compartilhada"
-            className="max-w-full h-auto rounded-lg shadow-lg animate-float"
+            className="max-w-full h-auto rounded-lg shadow-lg animate-float mb-6"
           />
+          <div className="bg-primary/10 border border-primary/20 rounded-lg p-6 max-w-2xl text-center">
+            <p className="text-lg text-primary font-semibold">
+              💡 A energia vira crédito, e esse crédito é direcionado para o consumidor
+            </p>
+            <p className="text-muted-foreground mt-2">
+              Energia Solar por Assinatura - conectando famílias brasileiras à energia limpa
+            </p>
+          </div>
         </div>
 
         {/* Steps Cards */}
