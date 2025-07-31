@@ -20,8 +20,7 @@ export function Footer() {
               />
             </div>
             <p className="text-primary-foreground/80 leading-relaxed">
-              Democratizando o acesso à energia solar através da geração compartilhada. 
-              Economia, sustentabilidade e praticidade para todos.
+              Democratizando o acesso à energia sustentável através da geração compartilhada. Mais sustentabilidade para todos
             </p>
           </div>
 
