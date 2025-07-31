@@ -10,11 +10,7 @@ import { useContentData } from "@/hooks/useContentData";
 
 export function PlansSection() {
   useScrollReveal();
-  const { plans, getSection, isLoading } = useContentData();
-  
-  // Debug: vamos ver o que está sendo carregado
-  console.log('PlansSection - plans:', plans);
-  console.log('PlansSection - isLoading:', isLoading);
+  const { plans, getSection } = useContentData();
   
   const plansData = getSection('plans');
   const sectionTitle = plansData?.content?.title || 'Escolha seu Plano de Economia';
@@ -60,89 +56,75 @@ export function PlansSection() {
         </div>
 
         {/* Plans Grid */}
-        {isLoading ? (
-          <div className="text-center py-16">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-            <p className="text-muted-foreground">Carregando planos...</p>
-          </div>
-        ) : plans.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {plans.map((plan, index) => (
-              <Card 
-                key={plan.id}
-                className={`
-                  relative overflow-hidden border-2 transition-smooth hover:scale-105 scroll-reveal
-                  ${plan.popular 
-                    ? 'border-secondary shadow-glow bg-white animate-pulse-glow' 
-                    : 'border-border hover:border-primary/30 gradient-card'
-                  }
-                `}
-                style={{ animationDelay: `${index * 0.2}s` }}
-              >
-                {plan.popular && (
-                  <div className="absolute top-0 left-0 right-0 bg-secondary text-secondary-foreground text-center py-2 font-semibold">
-                    <Star className="inline h-4 w-4 mr-1" />
-                    Mais Popular
-                  </div>
-                )}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          {plans.map((plan, index) => (
+            <Card 
+              key={plan.id}
+              className={`
+                relative overflow-hidden border-2 transition-smooth hover:scale-105 scroll-reveal
+                ${plan.popular 
+                  ? 'border-secondary shadow-glow bg-white animate-pulse-glow' 
+                  : 'border-border hover:border-primary/30 gradient-card'
+                }
+              `}
+              style={{ animationDelay: `${index * 0.2}s` }}
+            >
+              {plan.popular && (
+                <div className="absolute top-0 left-0 right-0 bg-secondary text-secondary-foreground text-center py-2 font-semibold">
+                  <Star className="inline h-4 w-4 mr-1" />
+                  Mais Popular
+                </div>
+              )}
+              
+              <CardHeader className={`text-center pb-4 ${plan.popular ? 'pt-12' : 'pt-8'}`}>
+                <CardTitle className="text-2xl font-bold text-foreground mb-2">
+                  {plan.name}
+                </CardTitle>
+                <p className="text-muted-foreground mb-4">{plan.subtitle}</p>
                 
-                <CardHeader className={`text-center pb-4 ${plan.popular ? 'pt-12' : 'pt-8'}`}>
-                  <CardTitle className="text-2xl font-bold text-foreground mb-2">
-                    {plan.name}
-                  </CardTitle>
-                  <p className="text-muted-foreground mb-4">{plan.subtitle}</p>
-                  
-                  <div className="mb-4">
-                    <div className="text-5xl font-bold text-primary mb-2">
-                      {plan.percentage}%
-                    </div>
-                    <div className="text-lg text-muted-foreground">
-                      de economia
-                    </div>
+                <div className="mb-4">
+                  <div className="text-5xl font-bold text-primary mb-2">
+                    {plan.percentage}%
                   </div>
-                  
-                  <div className="space-y-2">
-                    <div className="text-sm text-muted-foreground">
-                      Consumo: {plan.consumption_range}/mês
-                    </div>
-                    <div className="text-lg font-semibold text-secondary">
-                      Economia: {plan.estimated_savings}/mês
-                    </div>
+                  <div className="text-lg text-muted-foreground">
+                    de economia
                   </div>
-                </CardHeader>
+                </div>
+                
+                <div className="space-y-2">
+                  <div className="text-sm text-muted-foreground">
+                    Consumo: {plan.consumption_range}/mês
+                  </div>
+                  <div className="text-lg font-semibold text-secondary">
+                    Economia: {plan.estimated_savings}/mês
+                  </div>
+                </div>
+              </CardHeader>
 
-                <CardContent className="pt-4">
-                  <div className="space-y-4 mb-8">
-                    {Array.isArray(plan.features) && plan.features.map((feature: string, featureIndex: number) => (
-                      <div key={featureIndex} className="flex items-center">
-                        <div className="flex-shrink-0 w-5 h-5 bg-success/10 rounded-full flex items-center justify-center mr-3">
-                          <Check className="h-3 w-3 text-success" />
-                        </div>
-                        <span className="text-muted-foreground">{feature}</span>
+              <CardContent className="pt-4">
+                <div className="space-y-4 mb-8">
+                  {Array.isArray(plan.features) && plan.features.map((feature: string, featureIndex: number) => (
+                    <div key={featureIndex} className="flex items-center">
+                      <div className="flex-shrink-0 w-5 h-5 bg-success/10 rounded-full flex items-center justify-center mr-3">
+                        <Check className="h-3 w-3 text-success" />
                       </div>
-                    ))}
-                  </div>
+                      <span className="text-muted-foreground">{feature}</span>
+                    </div>
+                  ))}
+                </div>
 
-                  <Button 
-                    variant={plan.button_variant as any} 
-                    className="w-full"
-                    size="lg"
-                    onClick={() => handlePlanClick(plan.name)}
-                  >
-                    {plan.button_text}
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-16">
-            <p className="text-muted-foreground mb-4">Nenhum plano encontrado.</p>
-            <p className="text-sm text-muted-foreground">
-              Verifique se há planos cadastrados no painel administrativo.
-            </p>
-          </div>
-        )}
+                <Button 
+                  variant={plan.button_variant as any} 
+                  className="w-full"
+                  size="lg"
+                  onClick={() => handlePlanClick(plan.name)}
+                >
+                  {plan.button_text}
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
 
         {/* Additional Info */}
         <div className="text-center">
