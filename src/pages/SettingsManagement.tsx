@@ -58,6 +58,8 @@ export default function SettingsManagement() {
           setting_key: settingKey,
           setting_value: value,
           updated_at: new Date().toISOString()
+        }, {
+          onConflict: 'setting_key'
         });
 
       console.log('Supabase upsert result:', { error });
