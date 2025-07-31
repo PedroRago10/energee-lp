@@ -76,11 +76,11 @@ export function DifferentialSection() {
 
         {/* Call to action */}
         <div className="text-center mt-16 scroll-reveal">
-          <div className="bg-gradient-hero rounded-2xl p-8 text-white">
-            <h3 className="text-2xl font-bold mb-4">
+          <div className="gradient-hero rounded-2xl p-8 text-primary-foreground">
+            <h3 className="text-2xl font-bold mb-4 text-primary-foreground">
               Faça parte desta revolução energética! 🚀
             </h3>
-            <p className="text-lg opacity-90 max-w-2xl mx-auto">
+            <p className="text-lg text-primary-foreground/90 max-w-2xl mx-auto">
               Junte-se a milhares de famílias brasileiras que já escolheram um futuro mais sustentável e econômico.
             </p>
           </div>
