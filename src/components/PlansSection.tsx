@@ -61,13 +61,12 @@ export function PlansSection() {
             <Card 
               key={plan.id}
               className={`
-                relative overflow-hidden border-2 transition-smooth hover:scale-105 scroll-reveal bg-card
+                relative overflow-hidden border-2 transition-smooth hover:scale-105 bg-card
                 ${plan.popular 
                   ? 'border-secondary shadow-lg' 
                   : 'border-border hover:border-primary/30'
                 }
               `}
-              style={{ animationDelay: `${index * 0.2}s` }}
             >
               {plan.popular && (
                 <div className="absolute top-0 left-0 right-0 bg-secondary text-secondary-foreground text-center py-2 font-semibold">
