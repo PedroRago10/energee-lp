@@ -46,17 +46,28 @@ export function HowItWorksSection() {
     }
   ];
 
-  // Get steps from content, filter out null/undefined and add defaults for missing fields
+  // Get steps from content, handle null values and add defaults for missing fields
   const stepsContent = stepsData?.content?.steps || howItWorksData?.content?.steps;
-  const contentSteps = stepsContent?.filter((s: any) => 
-    s && s !== null && (s.title || s.description) // More lenient - show if has title OR description
-  ).map((s: any, index: number) => ({
-    number: String(index + 1).padStart(2, '0'),
-    title: s.title || `Etapa ${index + 1}`,
-    description: s.description || "Descrição da etapa",
-    icon: defaultSteps[index]?.icon || UserPlus,
-    color: defaultSteps[index]?.color || "text-primary"
-  })) || [];
+  const contentSteps = stepsContent?.map((s: any, index: number) => {
+    // Handle null/undefined step - use default data for first step
+    if (!s || s === null) {
+      return {
+        number: String(index + 1).padStart(2, '0'),
+        title: "Calcule sua economia e envie seu consumo",
+        description: "Preencha nosso formulário com seus dados e consumo. Selecione sua distribuidora de energia para uma simulação precisa.",
+        icon: defaultSteps[0]?.icon || UserPlus,
+        color: defaultSteps[0]?.color || "text-primary"
+      };
+    }
+    
+    return {
+      number: String(index + 1).padStart(2, '0'),
+      title: s.title || `Etapa ${index + 1}`,
+      description: s.description || "Descrição da etapa",
+      icon: defaultSteps[index]?.icon || UserPlus,
+      color: defaultSteps[index]?.color || "text-primary"
+    };
+  }).filter(Boolean) || []; // Remove any remaining null/undefined items
 
   const steps = contentSteps.length > 0 ? contentSteps : defaultSteps;
   const sectionTitle = stepsData?.title || howItWorksData?.title || "Como Funciona a Energia Compartilhada?";
