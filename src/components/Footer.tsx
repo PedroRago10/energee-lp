@@ -48,11 +48,6 @@ export function Footer() {
                   Perguntas Frequentes
                 </a>
               </li>
-              <li>
-                <a href="/blog" className="text-primary-foreground/80 hover:text-primary-foreground transition-fast">
-                  Blog
-                </a>
-              </li>
             </ul>
           </div>
 
