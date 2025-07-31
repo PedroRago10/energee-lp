@@ -33,10 +33,11 @@ export default function AdminLogin() {
 
     try {
       // Check credentials against custom admin_users table
-      const { data, error } = await supabase.rpc('verify_admin_login', {
-        input_email: formData.email,
-        input_password: formData.password
-      });
+      const { data, error } = await supabase
+        .rpc('verify_admin_login', {
+          input_email: formData.email,
+          input_password: formData.password
+        });
 
       if (error) {
         console.error('Login error:', error);

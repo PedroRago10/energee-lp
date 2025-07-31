@@ -30,17 +30,15 @@ export default function AdminDashboard() {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Check authentication
-    const checkAuth = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        navigate("/admin");
-        return;
-      }
-      setUser(user);
-    };
+    // Check admin session
+    const adminSession = localStorage.getItem('adminSession');
+    if (!adminSession) {
+      navigate('/admin');
+      return;
+    }
 
-    checkAuth();
+    const sessionData = JSON.parse(adminSession);
+    setUser({ email: sessionData.email });
     loadStats();
   }, [navigate]);
 
@@ -64,13 +62,13 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
+  const handleLogout = () => {
+    localStorage.removeItem('adminSession');
     toast({
       title: "Logout realizado",
       description: "Você foi desconectado com sucesso.",
     });
-    navigate("/admin");
+    navigate('/admin');
   };
 
   if (!user) {
