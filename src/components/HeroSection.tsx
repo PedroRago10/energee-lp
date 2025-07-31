@@ -31,7 +31,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -41,28 +41,28 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container-xl px-4 text-center text-white">
+      <div className="relative z-10 container-xl px-2 sm:px-4 text-center text-white">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 animate-fade-in">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 animate-fade-in leading-tight">
             {title}
           </h1>
           
-          <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto animate-slide-up">
+          <p className="text-sm sm:text-base md:text-lg mb-6 sm:mb-8 text-white/90 max-w-3xl mx-auto animate-slide-up">
             {description}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center animate-slide-up max-w-lg mx-auto">
             <Button 
               variant="white" 
-              size="xl" 
-              className="min-w-[200px] animate-pulse-glow"
+              size="lg" 
+              className="w-full sm:w-auto text-sm sm:text-base animate-pulse-glow"
               onClick={handleScrollToCTA}
             >
               Saiba Como Funciona
             </Button>
             <Button 
-            size="xl" 
-            className="bg-primary text-primary-foreground hover:bg-primary-hover shadow-lg hover:shadow-glow transition-smooth px-8 py-4 rounded-lg font-semibold text-lg "
+              size="lg" 
+              className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary-hover shadow-lg hover:shadow-glow transition-smooth text-sm sm:text-base"
               onClick={handleSimulateEconomy}
             >
               Simular Economia
@@ -70,13 +70,13 @@ export function HeroSection() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 animate-fade-in">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mt-12 sm:mt-16 animate-fade-in">
             {cards.map((card, index) => (
               <div key={index} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-secondary-light mb-2">
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary-light mb-2">
                   {card.title}
                 </div>
-                <div className="text-lg text-white/80">
+                <div className="text-sm sm:text-base md:text-lg text-white/80">
                   {card.subtitle}
                 </div>
               </div>

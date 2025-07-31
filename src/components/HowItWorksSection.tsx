@@ -40,30 +40,30 @@ export function HowItWorksSection() {
   ];
 
   return (
-    <section id="como-funciona" className="py-20 bg-muted/30">
-      <div className="container-xl px-4">
-        <div className="text-center mb-16 scroll-reveal">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+    <section id="como-funciona" className="py-12 sm:py-20 bg-muted/30">
+      <div className="container-xl px-2 sm:px-4">
+        <div className="text-center mb-12 sm:mb-16 scroll-reveal">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6 leading-tight">
             Como <span className="text-primary">Funciona</span> a Energia Compartilhada?
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
             É simples, rápido e sem complicação. Em apenas 3 passos você já está economizando 
             com energia solar compartilhada.
           </p>
         </div>
 
         {/* Diagram Image */}
-        <div className="mb-16 flex flex-col items-center scroll-reveal">
+        <div className="mb-12 sm:mb-16 flex flex-col items-center scroll-reveal">
           <img 
             src={howItWorksImage} 
             alt="Diagrama explicativo do funcionamento da energia compartilhada"
-            className="max-w-full h-auto rounded-lg shadow-lg animate-float mb-6"
+            className="max-w-full h-auto rounded-lg shadow-lg animate-float mb-4 sm:mb-6"
           />
-          <div className="bg-primary/10 border border-primary/20 rounded-lg p-6 max-w-2xl text-center">
-            <p className="text-lg text-primary font-semibold">
+          <div className="bg-primary/10 border border-primary/20 rounded-lg p-4 sm:p-6 max-w-2xl text-center">
+            <p className="text-sm sm:text-base md:text-lg text-primary font-semibold">
               💡 A energia vira crédito, e esse crédito é direcionado para o consumidor
             </p>
-            <p className="text-muted-foreground mt-2">
+            <p className="text-xs sm:text-sm text-muted-foreground mt-2">
               Energia Solar por Assinatura - conectando famílias brasileiras à energia limpa
             </p>
           </div>
@@ -79,20 +79,20 @@ export function HowItWorksSection() {
                 className="gradient-card border-0 shadow-lg hover:shadow-glow transition-smooth hover:scale-105 scroll-reveal"
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
-                <CardContent className="p-8 text-center">
-                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full bg-${step.color.replace('text-', '')}/10 mb-6`}>
-                    <IconComponent className={`h-8 w-8 ${step.color}`} />
+                <CardContent className="p-6 sm:p-8 text-center">
+                  <div className={`inline-flex items-center justify-center w-12 sm:w-16 h-12 sm:h-16 rounded-full bg-${step.color.replace('text-', '')}/10 mb-4 sm:mb-6`}>
+                    <IconComponent className={`h-6 sm:h-8 w-6 sm:w-8 ${step.color}`} />
                   </div>
                   
-                  <div className={`text-4xl font-bold ${step.color} mb-4`}>
+                  <div className={`text-2xl sm:text-3xl md:text-4xl font-bold ${step.color} mb-3 sm:mb-4`}>
                     {step.number}
                   </div>
                   
-                  <h3 className="text-2xl font-semibold text-foreground mb-4">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-foreground mb-3 sm:mb-4">
                     {step.title}
                   </h3>
                   
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                     {step.description}
                   </p>
                 </CardContent>
@@ -105,13 +105,13 @@ export function HowItWorksSection() {
         <div className="text-center scroll-reveal">
           <Button 
             variant="hero" 
-            size="xl" 
-            className="px-12 animate-pulse-glow"
+            size="lg" 
+            className="w-full sm:w-auto max-w-sm mx-auto animate-pulse-glow text-sm sm:text-base"
             onClick={handleCTAClick}
           >
             🚀 Começar Agora - É Grátis
           </Button>
-          <p className="text-muted-foreground mt-4">
+          <p className="text-xs sm:text-sm text-muted-foreground mt-3 sm:mt-4">
             Sem taxa de adesão • Sem fidelidade • Cancele quando quiser
           </p>
         </div>
