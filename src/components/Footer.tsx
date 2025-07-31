@@ -3,8 +3,16 @@
 
 import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import energeeLogo from "@/assets/energee-logo.png";
+import { useContentData } from "@/hooks/useContentData";
 
 export function Footer() {
+  const { getSetting } = useContentData();
+  
+  const contactPhone = getSetting('contact_phone', '(11) 99999-9999');
+  const contactEmail = getSetting('contact_email', 'contato@energee.org.br');
+  const companyName = getSetting('company_name', 'Energee');
+  const companyCnpj = getSetting('company_cnpj', '61.015.824/0001-20');
+  const companyAddress = getSetting('company_address', 'Brasil');
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container-xl px-4 py-16">
@@ -85,8 +93,8 @@ export function Footer() {
               <div className="flex items-start">
                 <Phone className="h-5 w-5 mt-1 mr-3 flex-shrink-0" />
                 <div>
-                  <a href="tel:+5511999999999" className="text-primary-foreground/80 hover:text-primary-foreground transition-fast">
-                    (11) 99999-9999
+                  <a href={`tel:${contactPhone.replace(/\D/g, '')}`} className="text-primary-foreground/80 hover:text-primary-foreground transition-fast">
+                    {contactPhone}
                   </a>
                   <div className="text-sm text-primary-foreground/60">
                     WhatsApp
@@ -97,8 +105,8 @@ export function Footer() {
               <div className="flex items-start">
                 <Mail className="h-5 w-5 mt-1 mr-3 flex-shrink-0" />
                 <div>
-                  <a href="mailto:contato@energee.org.br" className="text-primary-foreground/80 hover:text-primary-foreground transition-fast">
-                    contato@energee.org.br
+                  <a href={`mailto:${contactEmail}`} className="text-primary-foreground/80 hover:text-primary-foreground transition-fast">
+                    {contactEmail}
                   </a>
                   <div className="text-sm text-primary-foreground/60">
                     Suporte
@@ -110,7 +118,7 @@ export function Footer() {
                 <MapPin className="h-5 w-5 mt-1 mr-3 flex-shrink-0" />
                 <div>
                   <div className="text-primary-foreground/80">
-                    Brasil
+                    {companyAddress}
                   </div>
                   <div className="text-sm text-primary-foreground/60">
                     Atendimento Nacional
@@ -125,7 +133,7 @@ export function Footer() {
         <div className="border-t border-primary-foreground/20 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-primary-foreground/60 text-sm mb-4 md:mb-0">
-              © 2024 Energee.org.br. Todos os direitos reservados. • CNPJ: 61.015.824/0001-20
+              © 2024 {companyName}.org.br. Todos os direitos reservados. • CNPJ: {companyCnpj}
             </div>
             <div className="text-primary-foreground/60 text-sm">
               Regulamentado pela ANEEL • Desenvolvido por: Pedro Rago

@@ -61,7 +61,7 @@ export function CTAFormSection() {
       });
       
       // Redirect to WhatsApp with professional message
-      setTimeout(() => {
+      setTimeout(async () => {
         const whatsappMessage = `🌱 *ENERGEE - ENERGIA SOLAR COMPARTILHADA*
 
 Olá! Meu nome é *${formData.name}* e acabei de me cadastrar no site da Energee.
@@ -75,8 +75,8 @@ Gostaria de falar com um especialista sobre energia solar compartilhada e conhec
 
 Muito obrigado(a)!`;
 
-        trackWhatsAppClick("Formulário CTA Auto", "WhatsApp Automático - Formulário");
-        openWhatsApp(whatsappMessage, "Formulário CTA Auto");
+        await trackWhatsAppClick("Formulário CTA Auto", "WhatsApp Automático - Formulário");
+        await openWhatsApp(whatsappMessage, "Formulário CTA Auto");
       }, 1500);
       
       setFormData({
@@ -98,9 +98,9 @@ Muito obrigado(a)!`;
     }
   };
 
-  const handleWhatsAppClick = () => {
-    trackWhatsAppClick("CTA Form Section", "Falar via WhatsApp");
-    openWhatsApp(
+  const handleWhatsAppClick = async () => {
+    await trackWhatsAppClick("CTA Form Section", "Falar via WhatsApp");
+    await openWhatsApp(
       "Olá! Vi o site da Energee e gostaria de falar com um especialista sobre energia compartilhada.",
       "CTA Form Section"
     );

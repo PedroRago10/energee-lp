@@ -45,7 +45,18 @@ export function HowItWorksSection() {
     }
   ];
 
-  const steps = howItWorksData?.content?.steps || defaultSteps;
+  // Get steps from content, filter out null/undefined and add defaults for missing fields
+  const contentSteps = howItWorksData?.content?.steps?.filter((s: any) => 
+    s && s.title && s.description
+  ).map((s: any, index: number) => ({
+    number: String(index + 1).padStart(2, '0'),
+    title: s.title,
+    description: s.description,
+    icon: defaultSteps[index]?.icon || UserPlus,
+    color: defaultSteps[index]?.color || "text-primary"
+  })) || [];
+
+  const steps = contentSteps.length > 0 ? contentSteps : defaultSteps;
   const sectionTitle = howItWorksData?.title || "Como Funciona a Energia Compartilhada?";
   const sectionDescription = howItWorksData?.description || "É simples, rápido e sem complicação. Em apenas 3 passos você já está economizando com energia solar compartilhada.";
 

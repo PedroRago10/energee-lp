@@ -41,7 +41,19 @@ export function TestimonialsSection() {
     }
   ];
 
-  const testimonials = testimonialsData?.content?.testimonials || defaultTestimonials;
+  // Get testimonials from content, filter out incomplete ones and add defaults for missing fields
+  const contentTestimonials = testimonialsData?.content?.testimonials?.filter((t: any) => 
+    t && t.name && t.text && t.location
+  ).map((t: any) => ({
+    name: t.name,
+    location: t.location,
+    image: t.image || customerImage,
+    rating: t.rating || 5,
+    text: t.text,
+    savings: t.savings || "Economiza"
+  })) || [];
+
+  const testimonials = contentTestimonials.length > 0 ? contentTestimonials : defaultTestimonials;
   const sectionTitle = testimonialsData?.title || "O que nossos clientes estão falando";
   const sectionDescription = testimonialsData?.description || "Veja os depoimentos reais de quem já está economizando com energia solar compartilhada";
 

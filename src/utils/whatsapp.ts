@@ -1,8 +1,32 @@
 // WhatsApp integration utilities
+import { trackWhatsAppClick } from "@/utils/analytics";
+import { supabase } from "@/integrations/supabase/client";
 
-const WHATSAPP_NUMBER = "5511999999999"; // Replace with actual number
+// Função para obter configurações do sistema
+const getSystemSettings = async () => {
+  try {
+    const { data: settings } = await supabase
+      .from('site_settings')
+      .select('setting_key, setting_value');
+    
+    const settingsObj: Record<string, string> = {};
+    settings?.forEach(setting => {
+      settingsObj[setting.setting_key] = setting.setting_value || '';
+    });
+    
+    return settingsObj;
+  } catch (error) {
+    console.error('Error loading settings:', error);
+    return {};
+  }
+};
 
-export const openWhatsApp = (message?: string, source?: string) => {
+export const openWhatsApp = async (message?: string, source?: string) => {
+  const settings = await getSystemSettings();
+  
+  // Número do WhatsApp da empresa (vem das configurações ou fallback)
+  const phoneNumber = settings.whatsapp_number || "5511999999999";
+  
   const defaultMessage = "Olá! Vi o site da Energee e gostaria de saber mais sobre energia compartilhada.";
   const finalMessage = message || defaultMessage;
   
@@ -12,18 +36,24 @@ export const openWhatsApp = (message?: string, source?: string) => {
     : finalMessage;
   
   const encodedMessage = encodeURIComponent(trackedMessage);
-  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
   
   // Track which button was clicked for analytics
   console.log(`WhatsApp opened from: ${source || 'Unknown'}`);
   
+  // Track analytics
+  await trackWhatsAppClick(source || 'Unknown', finalMessage);
+  
   window.open(whatsappUrl, '_blank');
 };
 
-export const getWhatsAppLink = (message?: string) => {
+export const getWhatsAppLink = async (message?: string) => {
+  const settings = await getSystemSettings();
+  const phoneNumber = settings.whatsapp_number || "5511999999999";
+  
   const defaultMessage = "Olá! Vi o site da Energee e gostaria de saber mais sobre energia compartilhada.";
   const finalMessage = message || defaultMessage;
   const encodedMessage = encodeURIComponent(finalMessage);
   
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+  return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 };

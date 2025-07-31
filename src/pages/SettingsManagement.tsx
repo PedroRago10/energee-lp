@@ -107,57 +107,56 @@ export default function SettingsManagement() {
       </header>
 
       <div className="container-xl px-2 sm:px-4 py-4 sm:py-8 space-y-4 sm:space-y-6">
-        {/* Integração Mautic */}
+        {/* Informações da Empresa */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
               <Settings className="h-5 w-5" />
-              <span>Integração Mautic</span>
+              <span>Informações da Empresa</span>
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <Label htmlFor="mautic_url">URL do Mautic</Label>
+              <Label htmlFor="company_name">Nome da Empresa</Label>
               <Input
-                id="mautic_url"
-                value={settings.find(s => s.setting_key === 'mautic_url')?.setting_value || ''}
-                onChange={(e) => updateSetting('mautic_url', e.target.value)}
-                placeholder="https://seu-mautic.com"
+                id="company_name"
+                value={settings.find(s => s.setting_key === 'company_name')?.setting_value || ''}
+                onChange={(e) => updateSetting('company_name', e.target.value)}
+                placeholder="Energee"
               />
             </div>
             
             <div>
-              <Label htmlFor="mautic_username">Usuário do Mautic</Label>
+              <Label htmlFor="company_cnpj">CNPJ</Label>
               <Input
-                id="mautic_username"
-                value={settings.find(s => s.setting_key === 'mautic_username')?.setting_value || ''}
-                onChange={(e) => updateSetting('mautic_username', e.target.value)}
-                placeholder="seu-usuario"
+                id="company_cnpj"
+                value={settings.find(s => s.setting_key === 'company_cnpj')?.setting_value || ''}
+                onChange={(e) => updateSetting('company_cnpj', e.target.value)}
+                placeholder="00.000.000/0001-00"
               />
             </div>
 
             <div>
-              <Label htmlFor="mautic_password">Senha do Mautic</Label>
+              <Label htmlFor="company_address">Endereço</Label>
               <Input
-                id="mautic_password"
-                type="password"
-                value={settings.find(s => s.setting_key === 'mautic_password')?.setting_value || ''}
-                onChange={(e) => updateSetting('mautic_password', e.target.value)}
-                placeholder="sua-senha"
+                id="company_address"
+                value={settings.find(s => s.setting_key === 'company_address')?.setting_value || ''}
+                onChange={(e) => updateSetting('company_address', e.target.value)}
+                placeholder="Rua Example, 123 - São Paulo, SP"
               />
             </div>
 
             <Button onClick={() => {
-              const mauticUrl = settings.find(s => s.setting_key === 'mautic_url')?.setting_value || '';
-              const mauticUsername = settings.find(s => s.setting_key === 'mautic_username')?.setting_value || '';
-              const mauticPassword = settings.find(s => s.setting_key === 'mautic_password')?.setting_value || '';
+              const companyName = settings.find(s => s.setting_key === 'company_name')?.setting_value || '';
+              const companyCnpj = settings.find(s => s.setting_key === 'company_cnpj')?.setting_value || '';
+              const companyAddress = settings.find(s => s.setting_key === 'company_address')?.setting_value || '';
               
-              handleSave('mautic_url', mauticUrl);
-              handleSave('mautic_username', mauticUsername);
-              handleSave('mautic_password', mauticPassword);
+              handleSave('company_name', companyName);
+              handleSave('company_cnpj', companyCnpj);
+              handleSave('company_address', companyAddress);
             }}>
               <Save className="h-4 w-4 mr-2" />
-              Salvar Configurações do Mautic
+              Salvar Informações da Empresa
             </Button>
           </CardContent>
         </Card>
@@ -198,14 +197,14 @@ export default function SettingsManagement() {
               />
             </div>
 
-            <Button onClick={() => {
+            <Button onClick={async () => {
               const contactEmail = settings.find(s => s.setting_key === 'contact_email')?.setting_value || '';
               const contactPhone = settings.find(s => s.setting_key === 'contact_phone')?.setting_value || '';
               const whatsappNumber = settings.find(s => s.setting_key === 'whatsapp_number')?.setting_value || '';
               
-              handleSave('contact_email', contactEmail);
-              handleSave('contact_phone', contactPhone);
-              handleSave('whatsapp_number', whatsappNumber);
+              await handleSave('contact_email', contactEmail);
+              await handleSave('contact_phone', contactPhone);
+              await handleSave('whatsapp_number', whatsappNumber);
             }}>
               <Save className="h-4 w-4 mr-2" />
               Salvar Informações de Contato
@@ -251,14 +250,14 @@ export default function SettingsManagement() {
               />
             </div>
 
-            <Button onClick={() => {
+            <Button onClick={async () => {
               const heroTitle = settings.find(s => s.setting_key === 'hero_title')?.setting_value || '';
               const heroSubtitle = settings.find(s => s.setting_key === 'hero_subtitle')?.setting_value || '';
               const ctaText = settings.find(s => s.setting_key === 'cta_text')?.setting_value || '';
               
-              handleSave('hero_title', heroTitle);
-              handleSave('hero_subtitle', heroSubtitle);
-              handleSave('cta_text', ctaText);
+              await handleSave('hero_title', heroTitle);
+              await handleSave('hero_subtitle', heroSubtitle);
+              await handleSave('cta_text', ctaText);
             }}>
               <Save className="h-4 w-4 mr-2" />
               Salvar Textos Estratégicos
@@ -270,34 +269,43 @@ export default function SettingsManagement() {
         <Card>
           <CardHeader>
             <CardTitle>Analytics e Tracking</CardTitle>
+            <p className="text-sm text-muted-foreground">
+              Configure IDs de ferramentas de analytics para rastrear conversões e acessos do site
+            </p>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <Label htmlFor="google_analytics_id">Google Analytics ID</Label>
+              <Label htmlFor="google_analytics_id">Google Analytics ID (Opcional)</Label>
               <Input
                 id="google_analytics_id"
                 value={settings.find(s => s.setting_key === 'google_analytics_id')?.setting_value || ''}
                 onChange={(e) => updateSetting('google_analytics_id', e.target.value)}
-                placeholder="GA-XXXXXXXXX-X"
+                placeholder="G-XXXXXXXXXX ou GA-XXXXXXXXX-X"
               />
+              <p className="text-xs text-muted-foreground mt-1">
+                Para rastrear pageviews e eventos no Google Analytics
+              </p>
             </div>
             
             <div>
-              <Label htmlFor="facebook_pixel_id">Facebook Pixel ID</Label>
+              <Label htmlFor="facebook_pixel_id">Facebook Pixel ID (Opcional)</Label>
               <Input
                 id="facebook_pixel_id"
                 value={settings.find(s => s.setting_key === 'facebook_pixel_id')?.setting_value || ''}
                 onChange={(e) => updateSetting('facebook_pixel_id', e.target.value)}
                 placeholder="123456789012345"
               />
+              <p className="text-xs text-muted-foreground mt-1">
+                Para rastrear conversões para campanhas do Facebook/Instagram
+              </p>
             </div>
 
-            <Button onClick={() => {
+            <Button onClick={async () => {
               const gaId = settings.find(s => s.setting_key === 'google_analytics_id')?.setting_value || '';
               const fbPixelId = settings.find(s => s.setting_key === 'facebook_pixel_id')?.setting_value || '';
               
-              handleSave('google_analytics_id', gaId);
-              handleSave('facebook_pixel_id', fbPixelId);
+              await handleSave('google_analytics_id', gaId);
+              await handleSave('facebook_pixel_id', fbPixelId);
             }}>
               <Save className="h-4 w-4 mr-2" />
               Salvar Configurações de Analytics

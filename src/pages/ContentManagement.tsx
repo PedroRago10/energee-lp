@@ -812,19 +812,46 @@ export default function ContentManagement() {
                       });
                     }}
                   />
-                  <Textarea
-                    placeholder="Depoimento"
-                    value={editingSection.content?.testimonials?.[index]?.testimonial || testimonial.defaultTestimonial}
-                    onChange={(e) => {
-                      const newTestimonials = [...(editingSection.content?.testimonials || [])];
-                      newTestimonials[index] = { ...newTestimonials[index], testimonial: e.target.value };
-                      setEditingSection({
-                        ...editingSection,
-                        content: { ...editingSection.content, testimonials: newTestimonials }
-                      });
-                    }}
-                    rows={2}
-                  />
+                   <Input
+                     placeholder="URL da Imagem (opcional)"
+                     value={editingSection.content?.testimonials?.[index]?.image || ''}
+                     onChange={(e) => {
+                       const newTestimonials = [...(editingSection.content?.testimonials || [])];
+                       newTestimonials[index] = { ...newTestimonials[index], image: e.target.value };
+                       setEditingSection({
+                         ...editingSection,
+                         content: { ...editingSection.content, testimonials: newTestimonials }
+                       });
+                     }}
+                   />
+                   <Input
+                     placeholder="Avaliação (1-5)"
+                     type="number"
+                     min="1"
+                     max="5"
+                     value={editingSection.content?.testimonials?.[index]?.rating || '5'}
+                     onChange={(e) => {
+                       const newTestimonials = [...(editingSection.content?.testimonials || [])];
+                       newTestimonials[index] = { ...newTestimonials[index], rating: parseInt(e.target.value) || 5 };
+                       setEditingSection({
+                         ...editingSection,
+                         content: { ...editingSection.content, testimonials: newTestimonials }
+                       });
+                     }}
+                   />
+                   <Textarea
+                     placeholder="Depoimento"
+                     value={editingSection.content?.testimonials?.[index]?.text || testimonial.defaultTestimonial}
+                     onChange={(e) => {
+                       const newTestimonials = [...(editingSection.content?.testimonials || [])];
+                       newTestimonials[index] = { ...newTestimonials[index], text: e.target.value };
+                       setEditingSection({
+                         ...editingSection,
+                         content: { ...editingSection.content, testimonials: newTestimonials }
+                       });
+                     }}
+                     rows={2}
+                   />
                 </div>
               ))}
             </div>
