@@ -75,11 +75,30 @@ export default function SettingsManagement() {
   };
 
   const updateSetting = (key: string, value: string) => {
-    setSettings(settings.map(setting => 
-      setting.setting_key === key 
-        ? { ...setting, setting_value: value }
-        : setting
-    ));
+    setSettings(prevSettings => {
+      const existingSetting = prevSettings.find(s => s.setting_key === key);
+      if (existingSetting) {
+        return prevSettings.map(setting => 
+          setting.setting_key === key 
+            ? { ...setting, setting_value: value }
+            : setting
+        );
+      } else {
+        // Create new setting if it doesn't exist
+        return [
+          ...prevSettings,
+          {
+            id: crypto.randomUUID(),
+            setting_key: key,
+            setting_value: value,
+            setting_type: 'text',
+            description: null,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          }
+        ];
+      }
+    });
   };
 
   if (isLoading) {

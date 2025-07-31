@@ -19,6 +19,7 @@ export function HowItWorksSection() {
   };
 
   const howItWorksData = getSection('how-it-works');
+  const stepsData = getSection('steps');
   
   // Default steps fallback
   const defaultSteps = [
@@ -46,7 +47,8 @@ export function HowItWorksSection() {
   ];
 
   // Get steps from content, filter out null/undefined and add defaults for missing fields
-  const contentSteps = howItWorksData?.content?.steps?.filter((s: any) => 
+  const stepsContent = stepsData?.content?.steps || howItWorksData?.content?.steps;
+  const contentSteps = stepsContent?.filter((s: any) => 
     s && s.title && s.description
   ).map((s: any, index: number) => ({
     number: String(index + 1).padStart(2, '0'),
@@ -57,8 +59,8 @@ export function HowItWorksSection() {
   })) || [];
 
   const steps = contentSteps.length > 0 ? contentSteps : defaultSteps;
-  const sectionTitle = howItWorksData?.title || "Como Funciona a Energia Compartilhada?";
-  const sectionDescription = howItWorksData?.description || "É simples, rápido e sem complicação. Em apenas 3 passos você já está economizando com energia solar compartilhada.";
+  const sectionTitle = stepsData?.title || howItWorksData?.title || "Como Funciona a Energia Compartilhada?";
+  const sectionDescription = stepsData?.description || howItWorksData?.description || "É simples, rápido e sem complicação. Em apenas 3 passos você já está economizando com energia solar compartilhada.";
 
   return (
     <section id="como-funciona" className="py-12 sm:py-20 bg-muted/30">

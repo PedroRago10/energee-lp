@@ -54,8 +54,8 @@ export function TestimonialsSection() {
   })) || [];
 
   const testimonials = contentTestimonials.length > 0 ? contentTestimonials : defaultTestimonials;
-  const sectionTitle = testimonialsData?.title || "O que nossos clientes estão falando";
-  const sectionDescription = testimonialsData?.description || "Veja os depoimentos reais de quem já está economizando com energia solar compartilhada";
+  const sectionTitle = testimonialsData?.content?.title || testimonialsData?.title || "O que nossos clientes estão falando";
+  const sectionDescription = testimonialsData?.content?.subtitle || testimonialsData?.description || "Veja os depoimentos reais de quem já está economizando com energia solar compartilhada";
 
   return (
     <section id="depoimentos" className="py-20 gradient-section">
