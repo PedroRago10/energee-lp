@@ -4,9 +4,16 @@
 import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import energeeLogo from "@/assets/energee-logo.png";
 import { useContentData } from "@/hooks/useContentData";
+import { useState } from "react";
+import { TermsModal } from "@/components/modals/TermsModal";
+import { PrivacyModal } from "@/components/modals/PrivacyModal";
+import { CookieModal } from "@/components/modals/CookieModal";
 
 export function Footer() {
   const { getSetting } = useContentData();
+  const [termsOpen, setTermsOpen] = useState(false);
+  const [privacyOpen, setPrivacyOpen] = useState(false);
+  const [cookieOpen, setCookieOpen] = useState(false);
   
   const contactPhone = getSetting('contact_phone', '(11) 99999-9999');
   const contactEmail = getSetting('contact_email', 'contato@energee.org.br');
@@ -64,19 +71,28 @@ export function Footer() {
             <h3 className="text-lg font-semibold mb-6">Legal</h3>
             <ul className="space-y-3">
               <li>
-                <a href="/politicas" className="text-primary-foreground/80 hover:text-primary-foreground transition-fast">
+                <button 
+                  onClick={() => setTermsOpen(true)}
+                  className="text-primary-foreground/80 hover:text-primary-foreground transition-fast text-left"
+                >
                   Termos de Uso
-                </a>
+                </button>
               </li>
               <li>
-                <a href="/privacidade" className="text-primary-foreground/80 hover:text-primary-foreground transition-fast">
+                <button 
+                  onClick={() => setPrivacyOpen(true)}
+                  className="text-primary-foreground/80 hover:text-primary-foreground transition-fast text-left"
+                >
                   Política de Privacidade
-                </a>
+                </button>
               </li>
               <li>
-                <a href="/cookies" className="text-primary-foreground/80 hover:text-primary-foreground transition-fast">
+                <button 
+                  onClick={() => setCookieOpen(true)}
+                  className="text-primary-foreground/80 hover:text-primary-foreground transition-fast text-left"
+                >
                   Política de Cookies
-                </a>
+                </button>
               </li>
               <li>
                 <a href="/regulamentacao" className="text-primary-foreground/80 hover:text-primary-foreground transition-fast">
@@ -141,6 +157,10 @@ export function Footer() {
           </div>
         </div>
       </div>
+      
+      <TermsModal open={termsOpen} onOpenChange={setTermsOpen} />
+      <PrivacyModal open={privacyOpen} onOpenChange={setPrivacyOpen} />
+      <CookieModal open={cookieOpen} onOpenChange={setCookieOpen} />
     </footer>
   );
 }

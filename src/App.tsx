@@ -12,9 +12,6 @@ import PlansManagement from "./pages/PlansManagement";
 import FormSubmissions from "./pages/FormSubmissions";
 import FAQManagement from "./pages/FAQManagement";
 import SettingsManagement from "./pages/SettingsManagement";
-import TermsOfUse from "./pages/TermsOfUse";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import CookiePolicy from "./pages/CookiePolicy";
 import NotFound from "./pages/NotFound";
 
 // Create QueryClient instance outside component to prevent recreation
@@ -42,9 +39,6 @@ const App = () => {
           <Route path="/admin/forms" element={<FormSubmissions />} />
           <Route path="/admin/faq" element={<FAQManagement />} />
           <Route path="/admin/settings" element={<SettingsManagement />} />
-          <Route path="/politicas" element={<TermsOfUse />} />
-          <Route path="/privacidade" element={<PrivacyPolicy />} />
-          <Route path="/cookies" element={<CookiePolicy />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
