@@ -308,37 +308,28 @@ export default function ContentManagement() {
               {[
                 { 
                   defaultTitle: 'Calcule sua economia e envie seu consumo',
-                  defaultDescription: 'Preencha nosso formulário com seus dados e consumo. Selecione sua distribuidora de energia para uma simulação precisa.'
+                  defaultDescription: 'Preencha nosso formulário com seus dados e consumo. Selecione sua distribuidora de energia para uma simulação precisa.',
+                  icon: '📋'
                 },
                 { 
                   defaultTitle: 'Análise e Aprovação',
-                  defaultDescription: 'Nossa equipe analisa seu perfil de consumo e aprova sua participação no programa de energia compartilhada.'
+                  defaultDescription: 'Nossa equipe analisa seu perfil de consumo e aprova sua participação no programa de energia compartilhada.',
+                  icon: '⚡'
                 },
                 { 
                   defaultTitle: 'Comece a Economizar',
-                  defaultDescription: 'Receba os créditos de energia solar diretamente na sua conta de luz e veja sua economia crescer mês a mês.'
+                  defaultDescription: 'Receba os créditos de energia solar diretamente na sua conta de luz e veja sua economia crescer mês a mês.',
+                  icon: '💰'
                 }
               ].map((step, index) => (
                 <div key={index} className="border p-4 rounded-lg space-y-2">
-                  <Label>Etapa {index + 1}</Label>
-                  <Input
-                    placeholder="Ícone da Etapa"
-                    value={editingSection.content?.steps?.[index]?.icon || '📋'}
-                    onChange={(e) => {
-                      const newSteps = [...(editingSection.content?.steps || [])];
-                      newSteps[index] = { ...newSteps[index], icon: e.target.value };
-                      setEditingSection({
-                        ...editingSection,
-                        content: { ...editingSection.content, steps: newSteps }
-                      });
-                    }}
-                  />
+                  <Label>Etapa {index + 1} - {step.icon}</Label>
                   <Input
                     placeholder="Título"
                     value={editingSection.content?.steps?.[index]?.title || step.defaultTitle}
                     onChange={(e) => {
                       const newSteps = [...(editingSection.content?.steps || [])];
-                      newSteps[index] = { ...newSteps[index], title: e.target.value };
+                      newSteps[index] = { ...newSteps[index], title: e.target.value, icon: step.icon };
                       setEditingSection({
                         ...editingSection,
                         content: { ...editingSection.content, steps: newSteps }
@@ -350,7 +341,7 @@ export default function ContentManagement() {
                     value={editingSection.content?.steps?.[index]?.description || step.defaultDescription}
                     onChange={(e) => {
                       const newSteps = [...(editingSection.content?.steps || [])];
-                      newSteps[index] = { ...newSteps[index], description: e.target.value };
+                      newSteps[index] = { ...newSteps[index], description: e.target.value, icon: step.icon };
                       setEditingSection({
                         ...editingSection,
                         content: { ...editingSection.content, steps: newSteps }
@@ -407,30 +398,18 @@ export default function ContentManagement() {
             <div className="space-y-4">
               <Label>Cards (3 fixos)</Label>
               {[
-                { defaultTitle: 'Investimento de Famílias', defaultDescription: 'Nossa energia vem de investimentos de famílias brasileiras, não de grandes corporações' },
-                { defaultTitle: 'Rede Colaborativa', defaultDescription: 'Conectamos geradores e consumidores em uma rede sustentável e econômica' },
-                { defaultTitle: 'Energia Limpa', defaultDescription: 'Promovemos o uso de energia solar renovável para um futuro mais sustentável' }
+                { defaultTitle: 'Investimento de Famílias', defaultDescription: 'Nossa energia vem de investimentos de famílias brasileiras, não de grandes corporações', icon: '🏠' },
+                { defaultTitle: 'Rede Colaborativa', defaultDescription: 'Conectamos geradores e consumidores em uma rede sustentável e econômica', icon: '🔗' },
+                { defaultTitle: 'Energia Limpa', defaultDescription: 'Promovemos o uso de energia solar renovável para um futuro mais sustentável', icon: '🌱' }
               ].map((card, index) => (
                 <div key={index} className="border p-4 rounded-lg space-y-2">
-                  <Label>Card {index + 1}</Label>
-                  <Input
-                    placeholder="Ícone"
-                    value={editingSection.content?.cards?.[index]?.icon || '🏠'}
-                    onChange={(e) => {
-                      const newCards = [...(editingSection.content?.cards || [])];
-                      newCards[index] = { ...newCards[index], icon: e.target.value };
-                      setEditingSection({
-                        ...editingSection,
-                        content: { ...editingSection.content, cards: newCards }
-                      });
-                    }}
-                  />
+                  <Label>Card {index + 1} - {card.icon}</Label>
                   <Input
                     placeholder="Título"
                     value={editingSection.content?.cards?.[index]?.title || card.defaultTitle}
                     onChange={(e) => {
                       const newCards = [...(editingSection.content?.cards || [])];
-                      newCards[index] = { ...newCards[index], title: e.target.value };
+                      newCards[index] = { ...newCards[index], title: e.target.value, icon: card.icon };
                       setEditingSection({
                         ...editingSection,
                         content: { ...editingSection.content, cards: newCards }
@@ -442,7 +421,7 @@ export default function ContentManagement() {
                     value={editingSection.content?.cards?.[index]?.description || card.defaultDescription}
                     onChange={(e) => {
                       const newCards = [...(editingSection.content?.cards || [])];
-                      newCards[index] = { ...newCards[index], description: e.target.value };
+                      newCards[index] = { ...newCards[index], description: e.target.value, icon: card.icon };
                       setEditingSection({
                         ...editingSection,
                         content: { ...editingSection.content, cards: newCards }
@@ -515,33 +494,21 @@ export default function ContentManagement() {
             <div className="space-y-4">
               <Label>Cards de Benefícios (6 fixos)</Label>
               {[
-                { defaultTitle: 'Economia Garantida', defaultDescription: 'Reduza até 30% na sua conta de luz todo mês com energia limpa e renovável.' },
-                { defaultTitle: 'Sem Investimento Inicial', defaultDescription: 'Comece a economizar imediatamente, sem precisar investir em painéis solares.' },
-                { defaultTitle: 'Sem Obras ou Instalação', defaultDescription: 'Não há necessidade de obras em sua casa ou empresa. Tudo funciona remotamente.' },
-                { defaultTitle: 'Flexibilidade Total', defaultDescription: 'Cancele quando quiser, sem multas ou taxas de cancelamento.' },
-                { defaultTitle: 'Energia 100% Limpa', defaultDescription: 'Contribua para um planeta mais sustentável usando energia solar renovável.' },
-                { defaultTitle: 'Suporte Especializado', defaultDescription: 'Nossa equipe está sempre disponível para esclarecer suas dúvidas.' }
+                { defaultTitle: 'Economia Garantida', defaultDescription: 'Reduza até 30% na sua conta de luz todo mês com energia limpa e renovável.', icon: '💰' },
+                { defaultTitle: 'Sem Investimento Inicial', defaultDescription: 'Comece a economizar imediatamente, sem precisar investir em painéis solares.', icon: '🏦' },
+                { defaultTitle: 'Sem Obras ou Instalação', defaultDescription: 'Não há necessidade de obras em sua casa ou empresa. Tudo funciona remotamente.', icon: '🔧' },
+                { defaultTitle: 'Flexibilidade Total', defaultDescription: 'Cancele quando quiser, sem multas ou taxas de cancelamento.', icon: '⚡' },
+                { defaultTitle: 'Energia 100% Limpa', defaultDescription: 'Contribua para um planeta mais sustentável usando energia solar renovável.', icon: '🌱' },
+                { defaultTitle: 'Suporte Especializado', defaultDescription: 'Nossa equipe está sempre disponível para esclarecer suas dúvidas.', icon: '🤝' }
               ].map((benefit, index) => (
                 <div key={index} className="border p-4 rounded-lg space-y-2">
-                  <Label>Card {index + 1}</Label>
-                  <Input
-                    placeholder="Ícone"
-                    value={editingSection.content?.cards?.[index]?.icon || '💰'}
-                    onChange={(e) => {
-                      const newCards = [...(editingSection.content?.cards || [])];
-                      newCards[index] = { ...newCards[index], icon: e.target.value };
-                      setEditingSection({
-                        ...editingSection,
-                        content: { ...editingSection.content, cards: newCards }
-                      });
-                    }}
-                  />
+                  <Label>Card {index + 1} - {benefit.icon}</Label>
                   <Input
                     placeholder="Título"
                     value={editingSection.content?.cards?.[index]?.title || benefit.defaultTitle}
                     onChange={(e) => {
                       const newCards = [...(editingSection.content?.cards || [])];
-                      newCards[index] = { ...newCards[index], title: e.target.value };
+                      newCards[index] = { ...newCards[index], title: e.target.value, icon: benefit.icon };
                       setEditingSection({
                         ...editingSection,
                         content: { ...editingSection.content, cards: newCards }
@@ -553,7 +520,7 @@ export default function ContentManagement() {
                     value={editingSection.content?.cards?.[index]?.description || benefit.defaultDescription}
                     onChange={(e) => {
                       const newCards = [...(editingSection.content?.cards || [])];
-                      newCards[index] = { ...newCards[index], description: e.target.value };
+                      newCards[index] = { ...newCards[index], description: e.target.value, icon: benefit.icon };
                       setEditingSection({
                         ...editingSection,
                         content: { ...editingSection.content, cards: newCards }
@@ -596,32 +563,20 @@ export default function ContentManagement() {
               />
             </div>
             <div className="space-y-4">
-              <Label>Cards de Participantes</Label>
+              <Label>Cards de Participantes (3 fixos)</Label>
               {[
-                { defaultTitle: 'Pessoa Física (CPF)', defaultDescription: 'Residências, apartamentos, casas e propriedades rurais com consumo mensal a partir de 100 kWh.' },
-                { defaultTitle: 'Pessoa Jurídica (CNPJ)', defaultDescription: 'Empresas, comércios, indústrias e estabelecimentos comerciais de todos os portes.' },
-                { defaultTitle: 'Condomínios', defaultDescription: 'Condomínios residenciais e comerciais que buscam reduzir custos com energia elétrica.' }
+                { defaultTitle: 'Pessoa Física (CPF)', defaultDescription: 'Residências, apartamentos, casas e propriedades rurais com consumo mensal a partir de 100 kWh.', icon: '👤' },
+                { defaultTitle: 'Pessoa Jurídica (CNPJ)', defaultDescription: 'Empresas, comércios, indústrias e estabelecimentos comerciais de todos os portes.', icon: '🏢' },
+                { defaultTitle: 'Condomínios', defaultDescription: 'Condomínios residenciais e comerciais que buscam reduzir custos com energia elétrica.', icon: '🏘️' }
               ].map((participant, index) => (
                 <div key={index} className="border p-4 rounded-lg space-y-2">
-                  <Label>Card {index + 1}</Label>
-                  <Input
-                    placeholder="Ícone"
-                    value={editingSection.content?.cards?.[index]?.icon || '👤'}
-                    onChange={(e) => {
-                      const newCards = [...(editingSection.content?.cards || [])];
-                      newCards[index] = { ...newCards[index], icon: e.target.value };
-                      setEditingSection({
-                        ...editingSection,
-                        content: { ...editingSection.content, cards: newCards }
-                      });
-                    }}
-                  />
+                  <Label>Card {index + 1} - {participant.icon}</Label>
                   <Input
                     placeholder="Título"
                     value={editingSection.content?.cards?.[index]?.title || participant.defaultTitle}
                     onChange={(e) => {
                       const newCards = [...(editingSection.content?.cards || [])];
-                      newCards[index] = { ...newCards[index], title: e.target.value };
+                      newCards[index] = { ...newCards[index], title: e.target.value, icon: participant.icon };
                       setEditingSection({
                         ...editingSection,
                         content: { ...editingSection.content, cards: newCards }
@@ -633,7 +588,7 @@ export default function ContentManagement() {
                     value={editingSection.content?.cards?.[index]?.description || participant.defaultDescription}
                     onChange={(e) => {
                       const newCards = [...(editingSection.content?.cards || [])];
-                      newCards[index] = { ...newCards[index], description: e.target.value };
+                      newCards[index] = { ...newCards[index], description: e.target.value, icon: participant.icon };
                       setEditingSection({
                         ...editingSection,
                         content: { ...editingSection.content, cards: newCards }
@@ -663,32 +618,20 @@ export default function ContentManagement() {
               />
             </div>
             <div className="space-y-4">
-              <Label>Cards de Requisitos</Label>
+              <Label>Cards de Requisitos (3 fixos)</Label>
               {[
-                { defaultTitle: 'Conta de Luz Ativa', defaultDescription: 'Tenha uma conta de energia elétrica ativa em seu nome ou empresa.' },
-                { defaultTitle: 'Consumo Mínimo', defaultDescription: 'Consumo mensal de pelo menos 100 kWh na conta de energia.' },
-                { defaultTitle: 'Distribuidora Participante', defaultDescription: 'Sua distribuidora deve fazer parte do programa de energia compartilhada.' }
+                { defaultTitle: 'Conta de Luz Ativa', defaultDescription: 'Tenha uma conta de energia elétrica ativa em seu nome ou empresa.', icon: '✓' },
+                { defaultTitle: 'Consumo Mínimo', defaultDescription: 'Consumo mensal de pelo menos 100 kWh na conta de energia.', icon: '📊' },
+                { defaultTitle: 'Distribuidora Participante', defaultDescription: 'Sua distribuidora deve fazer parte do programa de energia compartilhada.', icon: '🏢' }
               ].map((requirement, index) => (
                 <div key={index} className="border p-4 rounded-lg space-y-2">
-                  <Label>Card {index + 1}</Label>
-                  <Input
-                    placeholder="Ícone"
-                    value={editingSection.content?.cards?.[index]?.icon || '✓'}
-                    onChange={(e) => {
-                      const newCards = [...(editingSection.content?.cards || [])];
-                      newCards[index] = { ...newCards[index], icon: e.target.value };
-                      setEditingSection({
-                        ...editingSection,
-                        content: { ...editingSection.content, cards: newCards }
-                      });
-                    }}
-                  />
+                  <Label>Card {index + 1} - {requirement.icon}</Label>
                   <Input
                     placeholder="Título"
                     value={editingSection.content?.cards?.[index]?.title || requirement.defaultTitle}
                     onChange={(e) => {
                       const newCards = [...(editingSection.content?.cards || [])];
-                      newCards[index] = { ...newCards[index], title: e.target.value };
+                      newCards[index] = { ...newCards[index], title: e.target.value, icon: requirement.icon };
                       setEditingSection({
                         ...editingSection,
                         content: { ...editingSection.content, cards: newCards }
@@ -700,7 +643,7 @@ export default function ContentManagement() {
                     value={editingSection.content?.cards?.[index]?.description || requirement.defaultDescription}
                     onChange={(e) => {
                       const newCards = [...(editingSection.content?.cards || [])];
-                      newCards[index] = { ...newCards[index], description: e.target.value };
+                      newCards[index] = { ...newCards[index], description: e.target.value, icon: requirement.icon };
                       setEditingSection({
                         ...editingSection,
                         content: { ...editingSection.content, cards: newCards }
