@@ -14,7 +14,243 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      admin_users: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          password_hash: string
+          role: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          password_hash: string
+          role?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          password_hash?: string
+          role?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      analytics_events: {
+        Row: {
+          created_at: string
+          event_data: Json | null
+          event_type: string
+          id: string
+          ip_address: unknown | null
+          referrer: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_data?: Json | null
+          event_type: string
+          id?: string
+          ip_address?: unknown | null
+          referrer?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_data?: Json | null
+          event_type?: string
+          id?: string
+          ip_address?: unknown | null
+          referrer?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
+      content_sections: {
+        Row: {
+          content: Json
+          created_at: string
+          description: string | null
+          id: string
+          images: Json | null
+          section_key: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          content?: Json
+          created_at?: string
+          description?: string | null
+          id?: string
+          images?: Json | null
+          section_key: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          content?: Json
+          created_at?: string
+          description?: string | null
+          id?: string
+          images?: Json | null
+          section_key?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      faqs: {
+        Row: {
+          active: boolean | null
+          answer: string
+          created_at: string
+          display_order: number | null
+          id: string
+          question: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean | null
+          answer: string
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          question: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean | null
+          answer?: string
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          question?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      form_submissions: {
+        Row: {
+          consumption: string | null
+          created_at: string
+          email: string
+          estado: string
+          id: string
+          message: string | null
+          name: string
+          phone: string
+          source: string | null
+        }
+        Insert: {
+          consumption?: string | null
+          created_at?: string
+          email: string
+          estado: string
+          id?: string
+          message?: string | null
+          name: string
+          phone: string
+          source?: string | null
+        }
+        Update: {
+          consumption?: string | null
+          created_at?: string
+          email?: string
+          estado?: string
+          id?: string
+          message?: string | null
+          name?: string
+          phone?: string
+          source?: string | null
+        }
+        Relationships: []
+      }
+      plans: {
+        Row: {
+          active: boolean | null
+          button_text: string | null
+          button_variant: string | null
+          consumption_range: string | null
+          created_at: string
+          display_order: number | null
+          estimated_savings: string | null
+          features: Json
+          id: string
+          name: string
+          percentage: number
+          popular: boolean | null
+          subtitle: string | null
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean | null
+          button_text?: string | null
+          button_variant?: string | null
+          consumption_range?: string | null
+          created_at?: string
+          display_order?: number | null
+          estimated_savings?: string | null
+          features?: Json
+          id?: string
+          name: string
+          percentage: number
+          popular?: boolean | null
+          subtitle?: string | null
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean | null
+          button_text?: string | null
+          button_variant?: string | null
+          consumption_range?: string | null
+          created_at?: string
+          display_order?: number | null
+          estimated_savings?: string | null
+          features?: Json
+          id?: string
+          name?: string
+          percentage?: number
+          popular?: boolean | null
+          subtitle?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          setting_key: string
+          setting_type: string | null
+          setting_value: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          setting_key: string
+          setting_type?: string | null
+          setting_value?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          setting_key?: string
+          setting_type?: string | null
+          setting_value?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
