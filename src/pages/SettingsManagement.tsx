@@ -101,6 +101,10 @@ export default function SettingsManagement() {
     });
   };
 
+  const getSettingValue = (key: string) => {
+    return settings.find(s => s.setting_key === key)?.setting_value || '';
+  };
+
   if (isLoading) {
     return <div className="p-8">Carregando...</div>;
   }
@@ -139,7 +143,7 @@ export default function SettingsManagement() {
               <Label htmlFor="company_name">Nome da Empresa</Label>
               <Input
                 id="company_name"
-                value={settings.find(s => s.setting_key === 'company_name')?.setting_value || ''}
+                value={getSettingValue('company_name')}
                 onChange={(e) => updateSetting('company_name', e.target.value)}
                 placeholder="Energee"
               />
@@ -149,7 +153,7 @@ export default function SettingsManagement() {
               <Label htmlFor="company_cnpj">CNPJ</Label>
               <Input
                 id="company_cnpj"
-                value={settings.find(s => s.setting_key === 'company_cnpj')?.setting_value || ''}
+                value={getSettingValue('company_cnpj')}
                 onChange={(e) => updateSetting('company_cnpj', e.target.value)}
                 placeholder="00.000.000/0001-00"
               />
@@ -159,16 +163,16 @@ export default function SettingsManagement() {
               <Label htmlFor="company_address">Endereço</Label>
               <Input
                 id="company_address"
-                value={settings.find(s => s.setting_key === 'company_address')?.setting_value || ''}
+                value={getSettingValue('company_address')}
                 onChange={(e) => updateSetting('company_address', e.target.value)}
                 placeholder="Rua Example, 123 - São Paulo, SP"
               />
             </div>
 
             <Button onClick={() => {
-              const companyName = settings.find(s => s.setting_key === 'company_name')?.setting_value || '';
-              const companyCnpj = settings.find(s => s.setting_key === 'company_cnpj')?.setting_value || '';
-              const companyAddress = settings.find(s => s.setting_key === 'company_address')?.setting_value || '';
+              const companyName = getSettingValue('company_name');
+              const companyCnpj = getSettingValue('company_cnpj');
+              const companyAddress = getSettingValue('company_address');
               
               handleSave('company_name', companyName);
               handleSave('company_cnpj', companyCnpj);
@@ -190,7 +194,7 @@ export default function SettingsManagement() {
               <Label htmlFor="contact_email">Email de Contato</Label>
               <Input
                 id="contact_email"
-                value={settings.find(s => s.setting_key === 'contact_email')?.setting_value || ''}
+                value={getSettingValue('contact_email')}
                 onChange={(e) => updateSetting('contact_email', e.target.value)}
                 placeholder="contato@energee.org.br"
               />
@@ -200,7 +204,7 @@ export default function SettingsManagement() {
               <Label htmlFor="contact_phone">Telefone de Contato</Label>
               <Input
                 id="contact_phone"
-                value={settings.find(s => s.setting_key === 'contact_phone')?.setting_value || ''}
+                value={getSettingValue('contact_phone')}
                 onChange={(e) => updateSetting('contact_phone', e.target.value)}
                 placeholder="(11) 99999-9999"
               />
@@ -210,16 +214,16 @@ export default function SettingsManagement() {
               <Label htmlFor="whatsapp_number">Número do WhatsApp</Label>
               <Input
                 id="whatsapp_number"
-                value={settings.find(s => s.setting_key === 'whatsapp_number')?.setting_value || ''}
+                value={getSettingValue('whatsapp_number')}
                 onChange={(e) => updateSetting('whatsapp_number', e.target.value)}
                 placeholder="5511999999999"
               />
             </div>
 
             <Button onClick={async () => {
-              const contactEmail = settings.find(s => s.setting_key === 'contact_email')?.setting_value || '';
-              const contactPhone = settings.find(s => s.setting_key === 'contact_phone')?.setting_value || '';
-              const whatsappNumber = settings.find(s => s.setting_key === 'whatsapp_number')?.setting_value || '';
+              const contactEmail = getSettingValue('contact_email');
+              const contactPhone = getSettingValue('contact_phone');
+              const whatsappNumber = getSettingValue('whatsapp_number');
               
               await handleSave('contact_email', contactEmail);
               await handleSave('contact_phone', contactPhone);
@@ -241,7 +245,7 @@ export default function SettingsManagement() {
               <Label htmlFor="hero_title">Título Principal (Hero)</Label>
               <Textarea
                 id="hero_title"
-                value={settings.find(s => s.setting_key === 'hero_title')?.setting_value || ''}
+                value={getSettingValue('hero_title')}
                 onChange={(e) => updateSetting('hero_title', e.target.value)}
                 placeholder="Economia de até 20% na conta de luz com energia solar"
                 rows={2}
@@ -252,7 +256,7 @@ export default function SettingsManagement() {
               <Label htmlFor="hero_subtitle">Subtítulo (Hero)</Label>
               <Textarea
                 id="hero_subtitle"
-                value={settings.find(s => s.setting_key === 'hero_subtitle')?.setting_value || ''}
+                value={getSettingValue('hero_subtitle')}
                 onChange={(e) => updateSetting('hero_subtitle', e.target.value)}
                 placeholder="Energia limpa, sem investimento inicial e com economia garantida"
                 rows={2}
@@ -263,16 +267,16 @@ export default function SettingsManagement() {
               <Label htmlFor="cta_text">Texto do CTA Principal</Label>
               <Input
                 id="cta_text"
-                value={settings.find(s => s.setting_key === 'cta_text')?.setting_value || ''}
+                value={getSettingValue('cta_text')}
                 onChange={(e) => updateSetting('cta_text', e.target.value)}
                 placeholder="Comece a Economizar Agora"
               />
             </div>
 
             <Button onClick={async () => {
-              const heroTitle = settings.find(s => s.setting_key === 'hero_title')?.setting_value || '';
-              const heroSubtitle = settings.find(s => s.setting_key === 'hero_subtitle')?.setting_value || '';
-              const ctaText = settings.find(s => s.setting_key === 'cta_text')?.setting_value || '';
+              const heroTitle = getSettingValue('hero_title');
+              const heroSubtitle = getSettingValue('hero_subtitle');
+              const ctaText = getSettingValue('cta_text');
               
               await handleSave('hero_title', heroTitle);
               await handleSave('hero_subtitle', heroSubtitle);
@@ -297,7 +301,7 @@ export default function SettingsManagement() {
               <Label htmlFor="google_analytics_id">Google Analytics ID (Opcional)</Label>
               <Input
                 id="google_analytics_id"
-                value={settings.find(s => s.setting_key === 'google_analytics_id')?.setting_value || ''}
+                value={getSettingValue('google_analytics_id')}
                 onChange={(e) => updateSetting('google_analytics_id', e.target.value)}
                 placeholder="G-XXXXXXXXXX ou GA-XXXXXXXXX-X"
               />
@@ -310,7 +314,7 @@ export default function SettingsManagement() {
               <Label htmlFor="facebook_pixel_id">Facebook Pixel ID (Opcional)</Label>
               <Input
                 id="facebook_pixel_id"
-                value={settings.find(s => s.setting_key === 'facebook_pixel_id')?.setting_value || ''}
+                value={getSettingValue('facebook_pixel_id')}
                 onChange={(e) => updateSetting('facebook_pixel_id', e.target.value)}
                 placeholder="123456789012345"
               />
@@ -320,8 +324,8 @@ export default function SettingsManagement() {
             </div>
 
             <Button onClick={async () => {
-              const gaId = settings.find(s => s.setting_key === 'google_analytics_id')?.setting_value || '';
-              const fbPixelId = settings.find(s => s.setting_key === 'facebook_pixel_id')?.setting_value || '';
+              const gaId = getSettingValue('google_analytics_id');
+              const fbPixelId = getSettingValue('facebook_pixel_id');
               
               await handleSave('google_analytics_id', gaId);
               await handleSave('facebook_pixel_id', fbPixelId);

@@ -49,11 +49,11 @@ export function HowItWorksSection() {
   // Get steps from content, filter out null/undefined and add defaults for missing fields
   const stepsContent = stepsData?.content?.steps || howItWorksData?.content?.steps;
   const contentSteps = stepsContent?.filter((s: any) => 
-    s && s.title && s.description
+    s && s !== null && (s.title || s.description) // More lenient - show if has title OR description
   ).map((s: any, index: number) => ({
     number: String(index + 1).padStart(2, '0'),
-    title: s.title,
-    description: s.description,
+    title: s.title || `Etapa ${index + 1}`,
+    description: s.description || "Descrição da etapa",
     icon: defaultSteps[index]?.icon || UserPlus,
     color: defaultSteps[index]?.color || "text-primary"
   })) || [];
