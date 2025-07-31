@@ -71,7 +71,7 @@ export function PlansSection() {
               <Card 
                 key={plan.id}
                 className={`
-                  relative overflow-hidden border-2 transition-smooth hover:scale-105 scroll-reveal
+                  relative overflow-hidden border-2 transition-smooth hover:scale-105
                   ${plan.popular 
                     ? 'border-secondary shadow-glow bg-white animate-pulse-glow' 
                     : 'border-border hover:border-primary/30 gradient-card'
