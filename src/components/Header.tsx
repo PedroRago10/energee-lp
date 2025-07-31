@@ -106,46 +106,47 @@ export function Header() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="md:hidden mt-4 pb-4 border-t border-border pt-4">
-            <div className="flex flex-col space-y-4">
+          <nav className="md:hidden mt-4 pb-4 border-t border-border pt-4 animate-fade-in">
+            <div className="flex flex-col space-y-3">
               <button 
                 onClick={() => handleNavClick('como-funciona', navLinks[0])}
-                className="text-foreground hover:text-primary transition-fast font-medium py-2 text-left"
+                className="text-foreground hover:text-primary transition-fast font-medium py-3 px-2 text-left rounded-md hover:bg-muted/50"
               >
                 {navLinks[0]}
               </button>
               <button 
                 onClick={() => handleNavClick('planos', navLinks[1])}
-                className="text-foreground hover:text-primary transition-fast font-medium py-2 text-left"
+                className="text-foreground hover:text-primary transition-fast font-medium py-3 px-2 text-left rounded-md hover:bg-muted/50"
               >
                 {navLinks[1]}
               </button>
               <button 
                 onClick={() => handleNavClick('depoimentos', navLinks[2])}
-                className="text-foreground hover:text-primary transition-fast font-medium py-2 text-left"
+                className="text-foreground hover:text-primary transition-fast font-medium py-3 px-2 text-left rounded-md hover:bg-muted/50"
               >
                 {navLinks[2]}
               </button>
               <button 
                 onClick={() => handleNavClick('faq', navLinks[3])}
-                className="text-foreground hover:text-primary transition-fast font-medium py-2 text-left"
+                className="text-foreground hover:text-primary transition-fast font-medium py-3 px-2 text-left rounded-md hover:bg-muted/50"
               >
                 {navLinks[3]}
               </button>
               
               {/* Mobile CTAs */}
-              <div className="flex flex-col space-y-3 pt-4 border-t border-border">
+              <div className="flex flex-col space-y-3 pt-4 border-t border-border mt-4">
                 <Button 
                   variant="outline" 
-                  size="sm" 
-                  className="justify-center"
+                  size="default"
+                  className="justify-center w-full"
                   onClick={handleFalarEspecialista}
                 >
-                  Falar com Especialista
+                  💬 Falar com Especialista
                 </Button>
                 <Button 
                   variant="cta" 
                   size="lg"
+                  className="w-full"
                   onClick={handleQueroParticipar}
                 >
                   {navLinks[4]}

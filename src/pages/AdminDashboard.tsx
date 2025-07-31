@@ -79,29 +79,34 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b bg-white">
-        <div className="container-xl px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-foreground">
+        <div className="container-xl px-2 sm:px-4 py-3 sm:py-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+            <div className="w-full sm:w-auto">
+              <h1 className="text-xl sm:text-2xl font-bold text-foreground">
                 Painel Administrativo
               </h1>
-              <p className="text-muted-foreground">
+              <p className="text-sm sm:text-base text-muted-foreground">
                 Bem-vindo, {user.email}
               </p>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4 w-full sm:w-auto">
               <Button 
                 variant="outline"
+                size="sm"
                 onClick={() => navigate("/")}
+                className="flex-1 sm:flex-none"
               >
-                <Eye className="h-4 w-4 mr-2" />
-                Ver Site
+                <Eye className="h-4 w-4 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Ver Site</span>
+                <span className="sm:hidden">Site</span>
               </Button>
               <Button 
                 variant="outline"
+                size="sm"
                 onClick={handleLogout}
+                className="flex-1 sm:flex-none"
               >
-                <LogOut className="h-4 w-4 mr-2" />
+                <LogOut className="h-4 w-4 mr-1 sm:mr-2" />
                 Sair
               </Button>
             </div>
@@ -109,9 +114,9 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      <div className="container-xl px-4 py-8">
+      <div className="container-xl px-2 sm:px-4 py-4 sm:py-8">
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-6 sm:mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
@@ -174,8 +179,8 @@ export default function AdminDashboard() {
         </div>
 
         {/* Main Content */}
-        <Tabs defaultValue="content" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
+        <Tabs defaultValue="content" className="space-y-4 sm:space-y-6">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-1">
             <TabsTrigger value="content">Conteúdo</TabsTrigger>
             <TabsTrigger value="plans">Planos</TabsTrigger>
             <TabsTrigger value="forms">Formulários</TabsTrigger>

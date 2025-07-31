@@ -134,29 +134,34 @@ export default function PlansManagement() {
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b bg-white">
-        <div className="container-xl px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+        <div className="container-xl px-2 sm:px-4 py-3 sm:py-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <Button 
                 variant="outline"
+                size="sm"
                 onClick={() => navigate("/admin/dashboard")}
               >
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Voltar
+                <ArrowLeft className="h-4 w-4 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Voltar</span>
               </Button>
-              <h1 className="text-2xl font-bold text-foreground">
+              <h1 className="text-lg sm:text-2xl font-bold text-foreground">
                 Gerenciamento de Planos
               </h1>
             </div>
-            <Button onClick={createNewPlan}>
-              <Plus className="h-4 w-4 mr-2" />
+            <Button 
+              size="sm"
+              onClick={createNewPlan}
+              className="w-full sm:w-auto"
+            >
+              <Plus className="h-4 w-4 mr-1 sm:mr-2" />
               Novo Plano
             </Button>
           </div>
         </div>
       </header>
 
-      <div className="container-xl px-4 py-8">
+      <div className="container-xl px-2 sm:px-4 py-4 sm:py-8">
         {editingPlan ? (
           <Card>
             <CardHeader>
@@ -165,7 +170,7 @@ export default function PlansManagement() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="name">Nome do Plano</Label>
                   <Input
@@ -193,7 +198,7 @@ export default function PlansManagement() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div>
                   <Label htmlFor="percentage">Porcentagem de Economia</Label>
                   <Input
@@ -251,7 +256,7 @@ export default function PlansManagement() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="button_text">Texto do Botão</Label>
                   <Input
@@ -310,12 +315,12 @@ export default function PlansManagement() {
                 </div>
               </div>
 
-              <div className="flex space-x-4">
-                <Button onClick={handleSave}>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <Button onClick={handleSave} className="flex-1 sm:flex-none">
                   <Save className="h-4 w-4 mr-2" />
                   Salvar
                 </Button>
-                <Button variant="outline" onClick={() => setEditingPlan(null)}>
+                <Button variant="outline" onClick={() => setEditingPlan(null)} className="flex-1 sm:flex-none">
                   Cancelar
                 </Button>
               </div>
@@ -354,7 +359,7 @@ export default function PlansManagement() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-sm">
                     <div>
                       <strong>Consumo:</strong> {plan.consumption_range}
                     </div>

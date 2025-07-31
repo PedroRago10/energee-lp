@@ -99,41 +99,46 @@ export default function FormSubmissions() {
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b bg-white">
-        <div className="container-xl px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+        <div className="container-xl px-2 sm:px-4 py-3 sm:py-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <Button 
                 variant="outline"
+                size="sm"
                 onClick={() => navigate("/admin/dashboard")}
               >
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Voltar
+                <ArrowLeft className="h-4 w-4 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Voltar</span>
               </Button>
-              <h1 className="text-2xl font-bold text-foreground">
+              <h1 className="text-lg sm:text-2xl font-bold text-foreground">
                 Formulários Recebidos
               </h1>
             </div>
-            <Button onClick={exportToCSV}>
-              <Download className="h-4 w-4 mr-2" />
-              Exportar CSV
+            <Button 
+              size="sm"
+              onClick={exportToCSV}
+              className="w-full sm:w-auto"
+            >
+              <Download className="h-4 w-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Exportar </span>CSV
             </Button>
           </div>
         </div>
       </header>
 
-      <div className="container-xl px-4 py-8">
-        <div className="mb-6">
-          <div className="flex items-center space-x-4">
-            <div className="relative flex-1 max-w-md">
+      <div className="container-xl px-2 sm:px-4 py-4 sm:py-8">
+        <div className="mb-4 sm:mb-6">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+            <div className="relative flex-1 max-w-full sm:max-w-md">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
               <Input
-                placeholder="Buscar por nome, email, telefone ou estado..."
+                placeholder="Buscar por nome, email, telefone..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10"
               />
             </div>
-            <div className="text-sm text-muted-foreground">
+            <div className="text-sm text-muted-foreground text-center sm:text-left">
               {filteredSubmissions.length} de {submissions.length} formulários
             </div>
           </div>
@@ -153,14 +158,14 @@ export default function FormSubmissions() {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <strong>Nome:</strong>
-                  <p>{selectedSubmission.name}</p>
+                  <p className="break-words">{selectedSubmission.name}</p>
                 </div>
                 <div>
                   <strong>Email:</strong>
-                  <p>{selectedSubmission.email}</p>
+                  <p className="break-all">{selectedSubmission.email}</p>
                 </div>
                 <div>
                   <strong>Telefone:</strong>
@@ -196,37 +201,43 @@ export default function FormSubmissions() {
         ) : (
           <Card>
             <CardContent className="p-0">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Nome</TableHead>
-                    <TableHead>Email</TableHead>
-                    <TableHead>Telefone</TableHead>
-                    <TableHead>Estado</TableHead>
-                    <TableHead>Consumo</TableHead>
-                    <TableHead>Data</TableHead>
-                    <TableHead>Ações</TableHead>
-                  </TableRow>
-                </TableHeader>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="min-w-32">Nome</TableHead>
+                      <TableHead className="min-w-48 hidden sm:table-cell">Email</TableHead>
+                      <TableHead className="min-w-32 hidden md:table-cell">Telefone</TableHead>
+                      <TableHead className="min-w-20 hidden lg:table-cell">Estado</TableHead>
+                      <TableHead className="min-w-24 hidden lg:table-cell">Consumo</TableHead>
+                      <TableHead className="min-w-24 hidden md:table-cell">Data</TableHead>
+                      <TableHead className="min-w-20">Ações</TableHead>
+                    </TableRow>
+                  </TableHeader>
                 <TableBody>
                   {filteredSubmissions.map((submission) => (
                     <TableRow key={submission.id}>
                       <TableCell className="font-medium">
-                        {submission.name}
+                        <div className="max-w-32 truncate">{submission.name}</div>
+                        <div className="sm:hidden text-xs text-muted-foreground mt-1">
+                          {submission.email}
+                        </div>
                       </TableCell>
-                      <TableCell>{submission.email}</TableCell>
-                      <TableCell>{submission.phone}</TableCell>
-                      <TableCell>
+                      <TableCell className="hidden sm:table-cell">
+                        <div className="max-w-48 truncate">{submission.email}</div>
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">{submission.phone}</TableCell>
+                      <TableCell className="hidden lg:table-cell">
                         <Badge variant="outline">{submission.estado}</Badge>
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="hidden lg:table-cell">
                         {submission.consumption || 'N/A'}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="hidden md:table-cell">
                         {new Date(submission.created_at).toLocaleDateString('pt-BR')}
                       </TableCell>
                       <TableCell>
-                        <div className="flex space-x-2">
+                        <div className="flex space-x-1">
                           <Button 
                             variant="ghost" 
                             size="sm"
@@ -238,6 +249,7 @@ export default function FormSubmissions() {
                             variant="ghost" 
                             size="sm"
                             onClick={() => sendEmail(submission.email, submission.name)}
+                            className="hidden sm:flex"
                           >
                             <Mail className="h-4 w-4" />
                           </Button>
@@ -247,6 +259,7 @@ export default function FormSubmissions() {
                   ))}
                 </TableBody>
               </Table>
+              </div>
             </CardContent>
           </Card>
         )}

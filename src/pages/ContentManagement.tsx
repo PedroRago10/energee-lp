@@ -945,25 +945,33 @@ export default function ContentManagement() {
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b bg-white">
-        <div className="container-xl px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+        <div className="container-xl px-2 sm:px-4 py-3 sm:py-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <Button 
                 variant="outline"
+                size="sm"
                 onClick={() => navigate("/admin/dashboard")}
               >
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Voltar
+                <ArrowLeft className="h-4 w-4 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Voltar</span>
               </Button>
-              <h1 className="text-2xl font-bold text-foreground">
+              <h1 className="text-lg sm:text-2xl font-bold text-foreground">
                 Gerenciamento de Conteúdo
               </h1>
             </div>
+            <Button 
+              size="sm"
+              onClick={() => setEditingSection(null)}
+              className="w-full sm:w-auto"
+            >
+              Ver Seções
+            </Button>
           </div>
         </div>
       </header>
 
-      <div className="container-xl px-4 py-8">
+      <div className="container-xl px-2 sm:px-4 py-4 sm:py-8">
         {editingSection ? (
           <Card>
             <CardHeader>

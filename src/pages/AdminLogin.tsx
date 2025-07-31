@@ -81,28 +81,28 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-hero flex items-center justify-center p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center pb-6">
-          <div className="flex justify-center mb-4">
+    <div className="min-h-screen bg-gradient-hero flex items-center justify-center p-2 sm:p-4">
+      <Card className="w-full max-w-sm sm:max-w-md mx-2 sm:mx-0">
+        <CardHeader className="text-center pb-4 sm:pb-6 px-4 sm:px-6">
+          <div className="flex justify-center mb-3 sm:mb-4">
             <img 
               src={energeeLogo} 
               alt="Energee" 
-              className="h-12 w-auto"
+              className="h-10 sm:h-12 w-auto"
             />
           </div>
-          <CardTitle className="text-2xl font-bold">
+          <CardTitle className="text-xl sm:text-2xl font-bold">
             Painel Administrativo
           </CardTitle>
-          <p className="text-muted-foreground">
+          <p className="text-sm sm:text-base text-muted-foreground">
             Faça login para acessar o painel de controle
           </p>
         </CardHeader>
         
-        <CardContent>
+        <CardContent className="px-4 sm:px-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <Label htmlFor="email">E-mail</Label>
+              <Label htmlFor="email" className="text-sm sm:text-base">E-mail</Label>
               <Input
                 id="email"
                 name="email"
@@ -111,12 +111,12 @@ export default function AdminLogin() {
                 onChange={handleInputChange}
                 placeholder="admin@energee.org.br"
                 required
-                className="mt-1"
+                className="mt-1 h-10 sm:h-12 text-sm sm:text-base"
               />
             </div>
 
             <div>
-              <Label htmlFor="password">Senha</Label>
+              <Label htmlFor="password" className="text-sm sm:text-base">Senha</Label>
               <Input
                 id="password"
                 name="password"
@@ -125,24 +125,24 @@ export default function AdminLogin() {
                 onChange={handleInputChange}
                 placeholder="••••••••"
                 required
-                className="mt-1"
+                className="mt-1 h-10 sm:h-12 text-sm sm:text-base"
               />
             </div>
 
             <Button 
               type="submit" 
-              className="w-full"
+              className="w-full h-10 sm:h-12 text-sm sm:text-base"
               disabled={isLoading}
             >
               {isLoading ? "Entrando..." : "Entrar"}
             </Button>
           </form>
 
-          <div className="mt-6 text-center">
+          <div className="mt-4 sm:mt-6 text-center">
             <Button 
               variant="ghost" 
               onClick={() => navigate("/")}
-              className="text-sm"
+              className="text-xs sm:text-sm"
             >
               ← Voltar ao site
             </Button>
