@@ -175,5 +175,3 @@ Este projeto é propriedade privada. Todos os direitos reservados.
 ### 📞 Suporte
 
 Para dúvidas técnicas ou comerciais, entre em contato através dos canais disponíveis na plataforma.
-
-**Energia Compartilhada - O Futuro é Agora! ⚡**
