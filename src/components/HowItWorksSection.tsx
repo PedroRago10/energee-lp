@@ -1,5 +1,3 @@
-// Seção Como Funciona - Explicação do processo em 3 passos
-// [ADMIN EDITABLE: Título, descrição dos passos, ícones]
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -18,9 +16,9 @@ export function HowItWorksSection() {
     document.getElementById('formulario')?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const howItWorksData = getSection('how-it-works');
+  const howItWorksData = getSection('how_it_works');
   const stepsData = getSection('steps');
-  
+
   // Default steps fallback
   const defaultSteps = [
     {
@@ -46,32 +44,20 @@ export function HowItWorksSection() {
     }
   ];
 
-  // Get steps from content, handle null values and add defaults for missing fields
-  const stepsContent = stepsData?.content?.steps || howItWorksData?.content?.steps;
+  const stepsContent = stepsData?.content?.steps || []
   const contentSteps = stepsContent?.map((s: any, index: number) => {
-    // Handle null/undefined step - use default data for first step
-    if (!s || s === null) {
-      return {
-        number: String(index + 1).padStart(2, '0'),
-        title: "Calcule sua economia e envie seu consumo",
-        description: "Preencha nosso formulário com seus dados e consumo. Selecione sua distribuidora de energia para uma simulação precisa.",
-        icon: defaultSteps[0]?.icon || UserPlus,
-        color: defaultSteps[0]?.color || "text-primary"
-      };
-    }
-    
     return {
       number: String(index + 1).padStart(2, '0'),
-      title: s.title || defaultSteps[index]?.title || `Etapa ${index + 1}`,
-      description: s.description || defaultSteps[index]?.description || "Descrição da etapa",
+      title: s.title  || '',
+      description: s.description || "",
       icon: defaultSteps[index]?.icon || UserPlus,
       color: defaultSteps[index]?.color || "text-primary"
     };
-  }).filter(Boolean) || []; // Remove any remaining null/undefined items
+  }).filter(Boolean) || []; 
 
   const steps = contentSteps.length > 0 ? contentSteps : defaultSteps;
-  const sectionTitle = stepsData?.title || howItWorksData?.title || "Como Funciona a Energia Compartilhada?";
-  const sectionDescription = stepsData?.description || howItWorksData?.description || "É simples, rápido e sem complicação. Em apenas 3 passos você já está economizando com energia solar compartilhada.";
+  const sectionTitle = howItWorksData?.content?.title || "";
+  const sectionDescription = howItWorksData?.content?.subtitle || "";
 
   return (
     <section id="como-funciona" className="py-12 sm:py-20 bg-muted/30">
@@ -98,10 +84,10 @@ export function HowItWorksSection() {
           />
           <div className="bg-primary/10 border border-primary/20 rounded-lg p-4 sm:p-6 max-w-2xl text-center">
             <p className="text-sm sm:text-base md:text-lg text-primary font-semibold">
-              💡 A energia vira crédito, e esse crédito é direcionado para o consumidor
+              {howItWorksData?.content?.promo?.title || ''}
             </p>
             <p className="text-xs sm:text-sm text-muted-foreground mt-2">
-              Energia Solar por Assinatura - conectando famílias brasileiras à energia limpa
+              {howItWorksData?.content?.promo?.description || ''}
             </p>
           </div>
         </div>
@@ -149,7 +135,7 @@ export function HowItWorksSection() {
             🚀 Começar Agora - É Grátis
           </Button>
           <p className="text-xs sm:text-sm text-muted-foreground mt-3 sm:mt-4">
-            Sem taxa de adesão • Sem fidelidade • Cancele quando quiser
+            {stepsData?.content?.ctaMessage || ''}
           </p>
         </div>
       </div>

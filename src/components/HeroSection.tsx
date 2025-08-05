@@ -12,13 +12,10 @@ export function HeroSection() {
   const { getSection } = useContentData();
   
   const heroData = getSection('hero');
-  const title = heroData?.content?.title || 'A nova forma de consumir energia limpa chegou.';
-  const description = heroData?.content?.description || 'Qualquer pessoa pode economizar usando energia solar compartilhada, sem obras, sem investimento inicial e sem complicação.';
-  const cards = heroData?.content?.cards || [
-    { title: '30%', subtitle: 'Economia Média na Conta' },
-    { title: '100%', subtitle: 'Energia Limpa e Renovável' },
-    { title: '0', subtitle: 'Investimento Inicial' }
-  ];
+
+  const title = heroData?.content?.title || '';
+  const description = heroData?.content?.description || '';
+  const cards = heroData?.content?.cards || [];
 
   const handleScrollToCTA = () => {
     trackCTAClick("Saiba Como Funciona", "Hero Section");

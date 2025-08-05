@@ -182,7 +182,7 @@ export default function ContentManagement() {
               <Label htmlFor="hero_title">Título Principal</Label>
               <Input
                 id="hero_title"
-                value={editingSection.content?.title || 'A nova forma de consumir energia limpa chegou.'}
+                value={editingSection.content?.title || ''}
                 onChange={(e) => setEditingSection({
                   ...editingSection,
                   content: { ...editingSection.content, title: e.target.value }
@@ -194,7 +194,7 @@ export default function ContentManagement() {
               <Label htmlFor="hero_description">Descrição</Label>
               <Textarea
                 id="hero_description"
-                value={editingSection.content?.description || 'Qualquer pessoa pode economizar usando energia solar compartilhada, sem obras, sem investimento inicial e sem complicação.'}
+                value={editingSection.content?.description || ''}
                 onChange={(e) => setEditingSection({
                   ...editingSection,
                   content: { ...editingSection.content, description: e.target.value }
@@ -206,9 +206,9 @@ export default function ContentManagement() {
             <div className="space-y-4">
               <Label>Cards de Destaque (3 fixos)</Label>
               {[
-                { key: 'economy', defaultTitle: '30%', defaultSubtitle: 'Economia Média na Conta' },
-                { key: 'clean', defaultTitle: '100%', defaultSubtitle: 'Energia Limpa e Renovável' },
-                { key: 'investment', defaultTitle: '0', defaultSubtitle: 'Investimento Inicial' }
+                { key: 'economy', defaultTitle: '', defaultSubtitle: '' },
+                { key: 'clean', defaultTitle: '', defaultSubtitle: '' },
+                { key: 'investment', defaultTitle: '', defaultSubtitle: '' }
               ].map((card, index) => (
                 <div key={card.key} className="border p-4 rounded-lg space-y-2">
                   <Label>Card {index + 1}</Label>
@@ -249,7 +249,7 @@ export default function ContentManagement() {
               <Label htmlFor="how_title">Título</Label>
               <Input
                 id="how_title"
-                value={editingSection.content?.title || 'Como Funciona a Energia Compartilhada?'}
+                value={editingSection.content?.title || ''}
                 onChange={(e) => setEditingSection({
                   ...editingSection,
                   content: { ...editingSection.content, title: e.target.value }
@@ -261,7 +261,7 @@ export default function ContentManagement() {
               <Label htmlFor="how_subtitle">Subtítulo</Label>
               <Textarea
                 id="how_subtitle"
-                value={editingSection.content?.subtitle || 'É simples, rápido e sem complicação. Em apenas 3 passos você já está economizando com energia solar compartilhada.'}
+                value={editingSection.content?.subtitle || ''}
                 onChange={(e) => setEditingSection({
                   ...editingSection,
                   content: { ...editingSection.content, subtitle: e.target.value }
@@ -275,7 +275,7 @@ export default function ContentManagement() {
               <div className="border p-4 rounded-lg space-y-2">
                 <Input
                   placeholder="Título da Propaganda"
-                  value={editingSection.content?.promo?.title || '💡 A energia vira crédito, e esse crédito é direcionado para o consumidor'}
+                  value={editingSection.content?.promo?.title || ''}
                   onChange={(e) => setEditingSection({
                     ...editingSection,
                     content: { 
@@ -286,7 +286,7 @@ export default function ContentManagement() {
                 />
                 <Input
                   placeholder="Descrição da Propaganda"
-                  value={editingSection.content?.promo?.description || 'Energia Solar por Assinatura - conectando famílias brasileiras à energia limpa'}
+                  value={editingSection.content?.promo?.description || ''}
                   onChange={(e) => setEditingSection({
                     ...editingSection,
                     content: { 
@@ -307,18 +307,18 @@ export default function ContentManagement() {
               <Label>Etapas (3 fixas)</Label>
               {[
                 { 
-                  defaultTitle: 'Calcule sua economia e envie seu consumo',
-                  defaultDescription: 'Preencha nosso formulário com seus dados e consumo. Selecione sua distribuidora de energia para uma simulação precisa.',
+                  defaultTitle: '',
+                  defaultDescription: '.',
                   icon: '📋'
                 },
                 { 
-                  defaultTitle: 'Análise e Aprovação',
-                  defaultDescription: 'Nossa equipe analisa seu perfil de consumo e aprova sua participação no programa de energia compartilhada.',
+                  defaultTitle: '',
+                  defaultDescription: '',
                   icon: '⚡'
                 },
                 { 
-                  defaultTitle: 'Comece a Economizar',
-                  defaultDescription: 'Receba os créditos de energia solar diretamente na sua conta de luz e veja sua economia crescer mês a mês.',
+                  defaultTitle: '',
+                  defaultDescription: '',
                   icon: '💰'
                 }
               ].map((step, index) => (
@@ -356,7 +356,7 @@ export default function ContentManagement() {
               <Label htmlFor="cta_message">Mensagem abaixo do botão</Label>
               <Input
                 id="cta_message"
-                value={editingSection.content?.ctaMessage || 'Sem taxa de adesão • Sem fidelidade • Cancele quando quiser'}
+                value={editingSection.content?.ctaMessage || ''}
                 onChange={(e) => setEditingSection({
                   ...editingSection,
                   content: { ...editingSection.content, ctaMessage: e.target.value }
@@ -374,7 +374,7 @@ export default function ContentManagement() {
               <Label htmlFor="diff_title">Título da Seção</Label>
               <Input
                 id="diff_title"
-                value={editingSection.content?.title || 'Unindo famílias, Geradores e Consumidores Brasileiros'}
+                value={editingSection.content?.title || ''}
                 onChange={(e) => setEditingSection({
                   ...editingSection,
                   content: { ...editingSection.content, title: e.target.value }
@@ -386,7 +386,7 @@ export default function ContentManagement() {
               <Label htmlFor="diff_subtitle">Subtítulo</Label>
               <Textarea
                 id="diff_subtitle"
-                value={editingSection.content?.subtitle || 'A energia vem de investimentos de famílias brasileiras, não de grandes corporações. Juntos, criamos uma rede de energia limpa, acessível e sustentável.'}
+                value={editingSection.content?.subtitle || ''}
                 onChange={(e) => setEditingSection({
                   ...editingSection,
                   content: { ...editingSection.content, subtitle: e.target.value }
@@ -731,7 +731,7 @@ export default function ContentManagement() {
               <Label htmlFor="testimonials_title">Título</Label>
               <Input
                 id="testimonials_title"
-                value={editingSection.content?.title || 'O que nossos clientes dizem?'}
+                value={editingSection.content?.title || ''}
                 onChange={(e) => setEditingSection({
                   ...editingSection,
                   content: { ...editingSection.content, title: e.target.value }
@@ -743,7 +743,7 @@ export default function ContentManagement() {
               <Label htmlFor="testimonials_subtitle">Subtítulo</Label>
               <Textarea
                 id="testimonials_subtitle"
-                value={editingSection.content?.subtitle || 'Milhares de pessoas já estão economizando com energia compartilhada. Veja o que elas têm a dizer sobre a experiência.'}
+                value={editingSection.content?.subtitle || ''}
                 onChange={(e) => setEditingSection({
                   ...editingSection,
                   content: { ...editingSection.content, subtitle: e.target.value }

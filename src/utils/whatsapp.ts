@@ -6,8 +6,8 @@ import { supabase } from "@/integrations/supabase/client";
 const getSystemSettings = async () => {
   try {
     const { data: settings } = await supabase
-      .from('site_settings')
-      .select('setting_key, setting_value');
+    .from('site_settings')
+    .select('setting_key, setting_value');
     
     const settingsObj: Record<string, string> = {};
     settings?.forEach(setting => {
@@ -21,29 +21,29 @@ const getSystemSettings = async () => {
   }
 };
 
+
 export const openWhatsApp = async (message?: string, source?: string) => {
   const settings = await getSystemSettings();
   
-  // Número do WhatsApp da empresa (vem das configurações ou fallback)
-  const phoneNumber = settings.whatsapp_number || "5511999999999";
+  const rawPhone = settings.whatsapp_number || "5511999999999";
+  const cleanPhone = rawPhone.replace(/[^\d]/g, '');
   
-  const defaultMessage = "Olá! Vi o site da Energee e gostaria de saber mais sobre energia compartilhada.";
+  const defaultMessage = `
+     *ENERGEE - ENERGIA SOLAR COMPARTILHADA*
+    `;
+  
   const finalMessage = message || defaultMessage;
-  
-  // Add source tracking to message for analytics
-  const trackedMessage = source 
-    ? `${finalMessage}\n\n_Origem: ${source}_`
-    : finalMessage;
+  const trackedMessage = source
+  ? `${finalMessage}\n\n_Origem: ${source}_`
+  : finalMessage;
   
   const encodedMessage = encodeURIComponent(trackedMessage);
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+  const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodedMessage}`;
   
-  // Track which button was clicked for analytics
   console.log(`WhatsApp opened from: ${source || 'Unknown'}`);
+  console.log('o link: ', whatsappUrl);
   
-  // Track analytics
   await trackWhatsAppClick(source || 'Unknown', finalMessage);
-  
   window.open(whatsappUrl, '_blank');
 };
 

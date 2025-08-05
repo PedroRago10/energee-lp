@@ -66,14 +66,14 @@ export function CTAFormSection() {
       
       // Redirect to WhatsApp with professional message
       setTimeout(async () => {
-        const whatsappMessage = `🌱 *ENERGEE - ENERGIA SOLAR COMPARTILHADA*
+        const whatsappMessage = `*ENERGEE - ENERGIA SOLAR COMPARTILHADA*
 
 Olá! Meu nome é *${formData.name}* e acabei de me cadastrar no site da Energee.
 
-📧 *Email:* ${formData.email}
-📱 *Telefone:* ${formData.phone}
-📍 *Estado:* ${formData.estado}
-${formData.consumption ? `💡 *Conta de luz:* ${formData.consumption}` : ''}
+ *Email:* ${formData.email}
+ *Telefone:* ${formData.phone}
+ *Estado:* ${formData.estado}
+${formData.consumption ? ` *Conta de luz:* ${formData.consumption}` : ''}
 
 Gostaria de falar com um especialista sobre energia solar compartilhada e conhecer melhor os planos de economia disponíveis.
 
