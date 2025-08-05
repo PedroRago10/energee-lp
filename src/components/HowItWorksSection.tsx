@@ -92,6 +92,9 @@ export function HowItWorksSection() {
           </div>
         </div>
 
+        <div className="mb-10 sm:mb-8 flex flex-col items-center scroll-reveal">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6 leading-tight">Etapas</h2>
+        </div>
         {/* Steps Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           {steps.map((step, index) => {

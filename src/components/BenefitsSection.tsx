@@ -8,6 +8,8 @@ import {
   Zap 
 } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { trackWhatsAppClick } from "@/utils/analytics";
+import { openWhatsApp } from "@/utils/whatsapp";
 
 export function BenefitsSection() {
   useScrollReveal();
@@ -55,6 +57,15 @@ export function BenefitsSection() {
       bgColor: "bg-success/10"
     }
   ];
+
+
+  const handleWhatsAppClick = async () => {
+    await trackWhatsAppClick("Falar com Especialista", "Desejo falar com especialista");
+    await openWhatsApp(
+      "Olá! Gostaria de falar com um especialista sobre energia compartilhada",
+      "Falar com Especialista"
+    );
+  };
 
   return (
     <section id="beneficios" className="py-20 bg-background">
@@ -116,7 +127,7 @@ export function BenefitsSection() {
               </button>
               <button 
                 className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-smooth px-8 py-4 rounded-lg font-semibold text-lg"
-                onClick={() => window.open('https://wa.me/5511999999999?text=Olá! Gostaria de falar com um especialista sobre energia compartilhada.', '_blank')}
+                onClick={handleWhatsAppClick}
               >
                 Falar com Especialista
               </button>

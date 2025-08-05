@@ -8,6 +8,8 @@ import { useState } from "react";
 import { TermsModal } from "@/components/modals/TermsModal";
 import { PrivacyModal } from "@/components/modals/PrivacyModal";
 import { CookieModal } from "@/components/modals/CookieModal";
+import { trackWhatsAppClick } from "@/utils/analytics";
+import { openWhatsApp } from "@/utils/whatsapp";
 
 export function Footer() {
   const { getSetting } = useContentData();
@@ -20,6 +22,15 @@ export function Footer() {
   const companyName = getSetting('company_name', 'Energee');
   const companyCnpj = getSetting('company_cnpj', '61.015.824/0001-20');
   const companyAddress = getSetting('company_address', 'Brasil');
+
+    const handleWhatsAppClick = async () => {
+      await trackWhatsAppClick("Falar com Especialista", "Desejo falar com especialista");
+      await openWhatsApp(
+        "Olá! Gostaria de falar com um especialista sobre energia compartilhada",
+        "Falar com Especialista"
+      );
+    };
+
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container-xl px-4 py-16">
@@ -105,7 +116,9 @@ export function Footer() {
               <div className="flex items-start">
                 <Phone className="h-5 w-5 mt-1 mr-3 flex-shrink-0" />
                 <div>
-                  <a href={`tel:${contactPhone.replace(/\D/g, '')}`} className="text-primary-foreground/80 hover:text-primary-foreground transition-fast">
+                  <a href="javascript:void(0)"
+                    onClick={handleWhatsAppClick}
+                   className="text-primary-foreground/80 hover:text-primary-foreground transition-fast">
                     {contactPhone}
                   </a>
                   <div className="text-sm text-primary-foreground/60">
