@@ -9,11 +9,20 @@ import {
 } from "@/components/ui/accordion";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useContentData } from "@/hooks/useContentData";
-
+import {  trackWhatsAppClick } from "@/utils/analytics";
+import { openWhatsApp } from "@/utils/whatsapp";
 export function FAQSection() {
   useScrollReveal();
   const { faqs } = useContentData();
 
+ 
+   const handleWhatsAppClick = async () => {
+     await trackWhatsAppClick("CTA Form Section", "Falar via WhatsApp");
+     await openWhatsApp(
+       "Olá! Vi o site da Energee e gostaria de falar com um especialista sobre energia compartilhada.",
+       "CTA Form Section"
+     );
+   };
   return (
     <section id="faq" className="py-20 bg-background">
       <div className="container-xl px-4">
@@ -57,7 +66,7 @@ export function FAQSection() {
               todas as suas questões sobre energia compartilhada.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-primary text-primary-foreground hover:bg-primary-hover shadow-custom-md transition-smooth px-6 py-3 rounded-lg font-semibold">
+              <button className="bg-primary text-primary-foreground hover:bg-primary-hover shadow-custom-md transition-smooth px-6 py-3 rounded-lg font-semibold" onClick={handleWhatsAppClick}>
                 💬 Falar via WhatsApp
               </button>
               <button className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-smooth px-6 py-3 rounded-lg font-semibold">
