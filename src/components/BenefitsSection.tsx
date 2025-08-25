@@ -10,6 +10,7 @@ import {
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { trackWhatsAppClick } from "@/utils/analytics";
 import { openWhatsApp } from "@/utils/whatsapp";
+import { FaWhatsapp } from "react-icons/fa";
 
 export function BenefitsSection() {
   useScrollReveal();
@@ -126,9 +127,10 @@ export function BenefitsSection() {
                 Simular Minha Economia
               </button>
               <button 
-                className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-smooth px-8 py-4 rounded-lg font-semibold text-lg"
+                className="flex items-center border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-smooth px-8 py-4 rounded-lg font-semibold text-lg"
                 onClick={handleWhatsAppClick}
               >
+                <FaWhatsapp className="w-6" />
                 Falar com Especialista
               </button>
             </div>

@@ -6,6 +6,8 @@ import howItWorksImage from "@/assets/energy-flow-diagram.jpg";
 import { trackCTAClick } from "@/utils/analytics";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useContentData } from "@/hooks/useContentData";
+import { FaWhatsapp } from "react-icons/fa"; 
+import { openWhatsApp } from "@/utils/whatsapp";
 
 export function HowItWorksSection() {
   useScrollReveal();
@@ -13,8 +15,11 @@ export function HowItWorksSection() {
 
   const handleCTAClick = () => {
     trackCTAClick("Começar Agora - É Grátis", "Como Funciona");
-    document.getElementById('formulario')?.scrollIntoView({ behavior: 'smooth' });
-  };
+ openWhatsApp(
+      "Olá, tudo bem? Gostaria de falar com um especialista sobre energia compartilhada.",
+      "Header"
+    );
+      };
 
   const howItWorksData = getSection('how_it_works');
   const stepsData = getSection('steps');
@@ -135,7 +140,8 @@ export function HowItWorksSection() {
             className="w-full sm:w-auto max-w-sm mx-auto animate-pulse-glow text-sm sm:text-base"
             onClick={handleCTAClick}
           >
-            🚀 Começar Agora - É Grátis
+            <FaWhatsapp className="w-2" />
+             Começar Agora - É Grátis
           </Button>
           <p className="text-xs sm:text-sm text-muted-foreground mt-3 sm:mt-4">
             {stepsData?.content?.ctaMessage || ''}

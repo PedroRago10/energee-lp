@@ -8,7 +8,7 @@ import energeeLogo from "@/assets/logo-energee-blue.png";
 import { trackCTAClick, trackWhatsAppClick } from "@/utils/analytics";
 import { openWhatsApp } from "@/utils/whatsapp";
 import { useContentData } from "@/hooks/useContentData";
-
+import { FaWhatsapp } from "react-icons/fa"; 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { getSection } = useContentData();
@@ -19,7 +19,10 @@ export function Header() {
 
   const handleQueroParticipar = () => {
     trackCTAClick(navLinks[4] || "Quero Participar", "Header");
-    document.getElementById('formulario')?.scrollIntoView({ behavior: 'smooth' });
+      openWhatsApp(
+      "Olá, tudo bem? Gostaria de falar com um especialista sobre energia compartilhada.",
+      "Header"
+    );
     setIsMenuOpen(false);
   };
 
@@ -86,6 +89,7 @@ export function Header() {
               size="lg"
               onClick={handleQueroParticipar}
             >
+              <FaWhatsapp className="w-7" />
               {navLinks[4]}
             </Button>
           </div>

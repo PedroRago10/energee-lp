@@ -7,6 +7,7 @@ import heroImage from "@/assets/hero-solar-panels.jpg";
 import { trackCTAClick } from "@/utils/analytics";
 import { openWhatsApp } from "@/utils/whatsapp";
 import { useContentData } from "@/hooks/useContentData";
+import { FaWhatsapp } from "react-icons/fa"; 
 
 export function HeroSection() {
   const { getSection } = useContentData();
@@ -24,8 +25,11 @@ export function HeroSection() {
 
   const handleSimulateEconomy = () => {
     trackCTAClick("Simular Economia", "Hero Section");
-    document.getElementById('formulario')?.scrollIntoView({ behavior: 'smooth' });
-  };
+ openWhatsApp(
+      "Olá, tudo bem? Gostaria de falar com um especialista sobre energia compartilhada.",
+      "Header"
+    );
+      };
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
@@ -62,7 +66,8 @@ export function HeroSection() {
               className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary-hover shadow-lg hover:shadow-glow transition-smooth text-sm sm:text-base"
               onClick={handleSimulateEconomy}
             >
-              Simular Economia
+              <FaWhatsapp className="w-2" />
+              Simular Minha Economia
             </Button>
           </div>
 

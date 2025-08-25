@@ -34,7 +34,7 @@ export const openWhatsApp = async (message?: string, source?: string) => {
   
   const finalMessage = message || defaultMessage;
   const trackedMessage = source
-  ? `${finalMessage}\n\n_Origem: ${source}_`
+  ? `${finalMessage}`
   : finalMessage;
   
   const encodedMessage = encodeURIComponent(trackedMessage);
