@@ -53,6 +53,14 @@ export function HeroSection() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center animate-slide-up max-w-lg mx-auto">
+           <Button 
+  size="lg" 
+  className="w-full sm:w-auto bg-[#25D366] text-white hover:bg-[#1DAA50] shadow-lg hover:shadow-glow transition-smooth text-sm sm:text-base"
+  onClick={handleSimulateEconomy}
+>
+  <FaWhatsapp className="mr-2 h-5 w-5" />
+  Falar no Whatsapp
+</Button>
             <Button 
               variant="white" 
               size="lg" 
@@ -61,14 +69,7 @@ export function HeroSection() {
             >
               Saiba Como Funciona
             </Button>
-            <Button 
-              size="lg" 
-              className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary-hover shadow-lg hover:shadow-glow transition-smooth text-sm sm:text-base"
-              onClick={handleSimulateEconomy}
-            >
-              <FaWhatsapp className="w-2" />
-              Simular Minha Economia
-            </Button>
+        
           </div>
 
           {/* Stats */}
