@@ -13,6 +13,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { supabase } from "@/integrations/supabase/client";
 import { TermsModal } from "@/components/modals/TermsModal";
 import { PrivacyModal } from "@/components/modals/PrivacyModal";
+import { FaWhatsapp } from "react-icons/fa";
 
 export function CTAFormSection() {
   useScrollReveal();
@@ -140,10 +141,11 @@ Muito obrigado(a)!`;
                 <Button 
                   variant="white" 
                   size="lg" 
-                  className="w-full sm:w-auto"
+                  className="w-full sm:w-auto bg-[#25D366] text-white hover:bg-[#1DAA50] shadow-lg hover:shadow-glow transition-smooth text-sm sm:text-base"
                   onClick={handleWhatsAppClick}
                 >
-                  💬 Falar via WhatsApp
+                   <FaWhatsapp className="mr-2 h-5 w-5" />
+                    Falar no Whatsapp
                 </Button>
                 <Button 
                   variant="white" 
